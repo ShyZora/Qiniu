@@ -18,6 +18,14 @@ public class VideoServiceImpl extends ServiceImpl<VideoDao, Video> implements Vi
 
     @Override
     public ResponseResult feed() {
+//        Video video = new Video();
+//        video.setVideoUrl("dasdas");
+//        video.setCoverUrl("dsad");
+//        video.setPublishTime(new Date());
+//        video.setUserId(1L);
+//        save(video);
+//        int i = list().size();
+//        System.out.println(i);
         return ResponseResult.okResult();
     }
 }

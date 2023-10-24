@@ -1,8 +1,11 @@
 package com.video.model.po;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 
-import java.io.Serializable;
+import java.util.Date;
 
 /**
  * (Video)表实体类
@@ -11,13 +14,33 @@ import java.io.Serializable;
  * @since 2023-10-25 01:45:31
  */
 @SuppressWarnings("serial")
-
+@TableName("video")
 public class Video extends Model<Video> {
-
+    @TableId(value="id",type = IdType.AUTO )
     private Long id;
 
-    private String VideoUrl;
-    private String CoverUrl;
+    private Long userId;
+
+    private String videoUrl;
+    private String coverUrl;
+    private Date publishTime;
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public Date getPublishTime() {
+        return publishTime;
+    }
+
+    public void setPublishTime(Date publishTime) {
+        this.publishTime = publishTime;
+    }
+
     public Long getId() {
         return id;
     }
@@ -27,19 +50,19 @@ public class Video extends Model<Video> {
     }
 
     public void setVideoUrl(String videoUrl) {
-        VideoUrl = videoUrl;
+        this.videoUrl = videoUrl;
     }
 
     public void setCoverUrl(String coverUrl) {
-        CoverUrl = coverUrl;
+        this.coverUrl = coverUrl;
     }
 
     public String getVideoUrl() {
-        return VideoUrl;
+        return videoUrl;
     }
 
     public String getCoverUrl() {
-        return CoverUrl;
+        return coverUrl;
     }
 }
 
