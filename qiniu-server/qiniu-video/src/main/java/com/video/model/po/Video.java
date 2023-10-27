@@ -25,6 +25,16 @@ public class Video extends Model<Video> {
     private String coverUrl;
     private Date publishTime;
 
+    private String title;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public Long getUserId() {
         return userId;
     }
