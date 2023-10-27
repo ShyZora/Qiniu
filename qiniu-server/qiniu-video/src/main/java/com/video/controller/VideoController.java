@@ -27,9 +27,6 @@ public class VideoController {
 
     @Autowired
     private IQiniuService qiniuService;
-    @Value("${qiniu.secretKey}")
-    private String a;
-
 
     @GetMapping("feed")
     public ResponseResult Feed(){
