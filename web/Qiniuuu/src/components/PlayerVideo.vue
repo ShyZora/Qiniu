@@ -14,11 +14,15 @@ export default {
         return {
             urlarr: [
                 //接收视频储存列表
+              // s32tuvjv2.hn-bkt.clouddn.com
+              // "http://s32tuvjv2.hn-bkt.clouddn.com/video/【阿蛋在哪】更新啦，赶紧来围观吧！.mp4"
             ],
             index:0,
-
         }
 
+    },
+    setup() {
+      this.getVedio()
     },
     methods: {
         init(url) {
@@ -79,7 +83,13 @@ export default {
             });
 
         },
-
+        getVedio(){
+            axios.get("localhost:8080/vedio/feed").then((res) => {
+                for(var i = 0;i < res.data.length; i ++) {
+                    urlarr.push(res.data[i].vedioUrl);
+                }
+          })
+        },
 
         handleKeyUp(event) {
             // if (event.key === "ArrowUp") {
