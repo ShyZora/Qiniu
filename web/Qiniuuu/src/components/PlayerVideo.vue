@@ -21,9 +21,6 @@ export default {
         }
 
     },
-    setup() {
-      this.getVedio()
-    },
     methods: {
         init(url) {
 
@@ -84,11 +81,12 @@ export default {
 
         },
         getVedio(){
+          // alert("111111111111111")
             axios.get("localhost:8080/vedio/feed").then((res) => {
                 for(var i = 0;i < res.data.length; i ++) {
                     urlarr.push(res.data[i].vedioUrl);
                 }
-          })
+            })
         },
 
         handleKeyUp(event) {
@@ -115,6 +113,7 @@ export default {
         },
     },
     mounted() {
+        this.getVedio()
         this.init(this.urlarr[this.index])
         document.addEventListener("keyup", this.handleKeyUp);
     },
