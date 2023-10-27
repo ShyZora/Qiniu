@@ -5,6 +5,7 @@ spring:
     url: jdbc:mysql://localhost:3306/qiniu?serverTimezone=UTC&userUnicode=true&useSSL=false&
     password: 2002.06.25abcj
     username: root
+
     driver-class-name: com.mysql.cj.jdbc.Driver
 # ========================== ↓↓↓↓↓↓ 七牛云配置 ↓↓↓↓↓↓ ==========================
 qiniu:
@@ -14,5 +15,4 @@ qiniu:
   bucket: shyzora # 空间名称
   zone: huanan # 存储区域
   domain: s32tuvjv2.hn-bkt.clouddn.com
-
 

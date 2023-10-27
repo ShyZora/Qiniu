@@ -24,15 +24,12 @@ import java.io.File;
 public class VideoController {
     @Autowired
     private VideoService videoService;
-
     @Autowired
     private IQiniuService qiniuService;
-
     @GetMapping("feed")
     public ResponseResult Feed(){
         return  videoService.feed();
     }
-
     @GetMapping("sda")
     public void testUpload() throws QiniuException {
         String result = qiniuService.uploadFile(new File("C:\\Users\\world\\Pictures\\1688129525236.jpg"), "video\\688129525236.jpg");
