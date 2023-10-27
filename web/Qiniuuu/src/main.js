@@ -8,8 +8,10 @@ Vue.use(ElementUI)
 Vue.config.productionTip = false
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
+import axios from 'axios'
 Vue.prototype.$video = videojs;
-
+Vue.prototype.$http = axios
+axios.defaults.baseURL = '/video'
 new Vue({
   router,
   store,

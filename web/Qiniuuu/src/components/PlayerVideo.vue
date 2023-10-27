@@ -8,6 +8,7 @@ import Player from "xgplayer";
 import hlsjsPlayer from 'xgplayer-hls.js';
 import 'xgplayer';
 import 'xgplayer/dist/index.min.css';
+
 export default {
     name: 'commonAside',
     data() {
@@ -81,11 +82,12 @@ export default {
 
         },
         getVedio(){
-          // alert("111111111111111")
-            axios.get("localhost:8080/vedio/feed").then((res) => {
-                for(var i = 0;i < res.data.length; i ++) {
-                    urlarr.push(res.data[i].vedioUrl);
+            this.$http.get("/video/feed").then((res) => {
+                for(var i = 0;i < res.data.data.length; i ++) {
+                    this.urlarr.push(res.data.data[i].videoUrl);
                 }
+                console.log(this.urlarr)
+                this.init(this.urlarr[this.index])
             })
         },
 
