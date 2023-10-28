@@ -1,5 +1,6 @@
 package com.video.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.common.model.ResponseResult;
@@ -26,6 +27,26 @@ public class VideoServiceImpl extends ServiceImpl<VideoDao, Video> implements Vi
         queryWrapper.last("limit 10");
         List<Video> list = list(queryWrapper);
         System.out.println("dsaasdsasda");
+        return ResponseResult.okResult(list);
+    }
+
+    @Override
+    public ResponseResult categoryVideo(Long categoryId) {
+        LambdaQueryWrapper<Video> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Video::getCategoryId,categoryId);
+        queryWrapper.orderByDesc(Video::getPublishTime);
+        List<Video> list = list(queryWrapper);
+        System.out.println("查询分类视频");
+        return ResponseResult.okResult(list);
+    }
+
+    @Override
+    public ResponseResult userVideo(Long userId) {
+        LambdaQueryWrapper<Video> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Video::getUserId,userId);
+        queryWrapper.orderByDesc(Video::getPublishTime);
+        List<Video> list = list(queryWrapper);
+        System.out.println("查询用户视频");
         return ResponseResult.okResult(list);
     }
 }

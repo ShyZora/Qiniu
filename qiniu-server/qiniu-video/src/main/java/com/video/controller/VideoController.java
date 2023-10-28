@@ -70,4 +70,14 @@ public class VideoController {
     public ResponseResult publishVideo(@RequestBody PublishVideoDto publishVideoDto){
         return qiniuService.publish(publishVideoDto);
     }
+    @GetMapping("category/feed")
+    public ResponseResult categoryVideo(Long categoryId){
+        return videoService.categoryVideo(categoryId);
+    }
+
+    @GetMapping("user/feed")
+    public ResponseResult userVideo(Long userId){
+        System.out.println("用户视频controller");
+        return videoService.userVideo(userId);
+    }
 }

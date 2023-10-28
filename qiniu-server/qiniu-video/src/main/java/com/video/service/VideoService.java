@@ -12,5 +12,9 @@ import com.video.model.po.Video;
  */
 public interface VideoService extends IService<Video> {
     ResponseResult feed();
+
+    ResponseResult categoryVideo(Long categoryId);
+
+    ResponseResult userVideo(Long userId);
 }
 
