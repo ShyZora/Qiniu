@@ -8,17 +8,15 @@ import Player from "xgplayer";
 import hlsjsPlayer from 'xgplayer-hls.js';
 import 'xgplayer';
 import 'xgplayer/dist/index.min.css';
-
 export default {
     name: 'commonAside',
     data() {
         return {
             urlarr: [
                 //接收视频储存列表
-              // s32tuvjv2.hn-bkt.clouddn.com
-              // "http://s32tuvjv2.hn-bkt.clouddn.com/video/【阿蛋在哪】更新啦，赶紧来围观吧！.mp4"
             ],
             index:0,
+
         }
 
     },
@@ -81,15 +79,7 @@ export default {
             });
 
         },
-        getVedio(){
-            this.$http.get("/video/feed").then((res) => {
-                for(var i = 0;i < res.data.data.length; i ++) {
-                    this.urlarr.push(res.data.data[i].videoUrl);
-                }
-                console.log(this.urlarr)
-                this.init(this.urlarr[this.index])
-            })
-        },
+
 
         handleKeyUp(event) {
             // if (event.key === "ArrowUp") {
@@ -115,7 +105,6 @@ export default {
         },
     },
     mounted() {
-        this.getVedio()
         this.init(this.urlarr[this.index])
         document.addEventListener("keyup", this.handleKeyUp);
     },

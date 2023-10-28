@@ -1,0 +1,18 @@
+server:
+  port: 8083
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/qiniu?serverTimezone=UTC&userUnicode=true&useSSL=false&
+    password: 2002.06.25abcj
+    username: root
+
+    driver-class-name: com.mysql.cj.jdbc.Driver
+# ========================== ↓↓↓↓↓↓ 七牛云配置 ↓↓↓↓↓↓ ==========================
+qiniu:
+  accessKey: b_likS6dAlG7u9fd8VG_8G03kaD3xPY3A7VfXW3R
+  secretKey: 1HOY1UoepSHTg960Y0F-bRgtU0zKFrm09k92tbHL
+  # 对象储存
+  bucket: shyzora # 空间名称
+  zone: huanan # 存储区域
+  domain: s32tuvjv2.hn-bkt.clouddn.com
+
