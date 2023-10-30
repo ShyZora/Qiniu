@@ -26,7 +26,6 @@ public class VideoServiceImpl extends ServiceImpl<VideoDao, Video> implements Vi
         queryWrapper.lambda().orderByAsc(Video::getPublishTime);
         queryWrapper.last("limit 10");
         List<Video> list = list(queryWrapper);
-        System.out.println("dsaasdsasda");
         return ResponseResult.okResult(list);
     }
 
