@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
     @RequestMapping("/hell")
-//    @PreAuthorize("hasAnyAuthority('test')")
+    @PreAuthorize("hasAuthority('action::visited.test')")
     String home() {
         return "Hello, spring security";
     }

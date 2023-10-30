@@ -7,4 +7,5 @@ import com.security.pojo.User;
 public interface LoginService {
     public ResponseResult login(User user);
     public LoginUser getLoginUser(String userId);
+    public ResponseResult logout();
 }
