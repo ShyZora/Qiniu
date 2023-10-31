@@ -15,7 +15,7 @@
                         <div class="grid-content bg-purple-light">私信</div>
                     </el-col>
                     <el-col :span="5">
-                        <upVideo/>
+                        <!-- <upVideo/> -->
                     </el-col>
                     <el-col :span="9" style="margin-top: -12px;">
                         <el-button type="danger" round style="padding: 8px 27px;"
