@@ -18,20 +18,20 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView,
-    redirect:'/home',
+    redirect: '/home',
     children: [
-      { path: 'home', component: home,name:'home' },
-      { path: 'user', component: user,name:'user' },
-      { path: 'recommend', component: recommend,name:'recommend' },
-      { path: 'collect', component: collect ,name:'collect'},
-      { path: 'fashion', component: fashion ,name:'fashion'},
-      { path: 'sports', component: sports ,name:'sports'},
-      { path: 'music', component: music ,name:'music'},
-      { path: 'recreation', component: recreation,name:'recreation'},
-      { path: 'game', component: game ,name:'game'},
-  ]
+      { path: 'home', component: home, name: 'home' },
+      { path: 'user', component: user, name: 'user' },
+      { path: 'recommend', component: recommend, name: 'recommend' },
+      { path: 'collect', component: collect, name: 'collect' },
+      { path: 'fashion', component: fashion, name: 'fashion' },
+      { path: 'sports', component: sports, name: 'sports' },
+      { path: 'music', component: music, name: 'music' },
+      { path: 'recreation', component: recreation, name: 'recreation' },
+      { path: 'game', component: game, name: 'game' },
+    ]
   },
- 
+
 ]
 
 const router = new VueRouter({

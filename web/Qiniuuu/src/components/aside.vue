@@ -38,7 +38,7 @@ export default {
 .aside {
     position: absolute;
     left: 92%;
-    z-index: 5;
+    z-index: 15;
     height: 89vh;
     border-right: none;
     width: 5.8%;
