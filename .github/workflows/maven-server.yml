@@ -42,8 +42,10 @@ jobs:
     # 移动video包  
     - name: move package video
       run:  cd .. && ls && cd Qiniu/qiniu-server/qiniu-video/ && cp target/*.jar ../../../Qiniu/staging
+    
     - name: show path
-      run: cd /Qiniu/Qiniu && pwd && ls 
+      run: cd .. && pwd && ls 
+      
     - uses: actions/upload-artifact@v3
       with:
         name: Package
