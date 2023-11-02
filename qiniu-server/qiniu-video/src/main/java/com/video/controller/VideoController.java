@@ -2,13 +2,10 @@ package com.video.controller;
 
 import com.common.model.ResponseResult;
 import com.qiniu.common.QiniuException;
-import com.qiniu.storage.UploadManager;
-import com.qiniu.util.Auth;
 import com.video.model.dto.PublishVideoDto;
 import com.video.service.IQiniuService;
 import com.video.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
