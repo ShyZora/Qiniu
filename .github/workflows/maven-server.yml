@@ -33,7 +33,8 @@ jobs:
       run: cd qiniu-server && mvn --batch-mode --update-snapshots verify
     # 打包
     - name: Build with Maven
-      # run: mvn -B package --file pom.xml
+      run: mvn -B package --file pom.xml
+    - name: move package
       run: mkdir staging && cp target/*.jar staging
     - uses: actions/upload-artifact@v3
       with:
