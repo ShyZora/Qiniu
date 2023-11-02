@@ -30,7 +30,7 @@ jobs:
         cache: maven
     # 测试
     - name: Run the Maven verify phase
-      run: mvn --batch-mode --update-snapshots verify
+      run: cd qiniu-server && mvn --batch-mode --update-snapshots verify
     # 打包
     - name: Build with Maven
       # run: mvn -B package --file pom.xml
