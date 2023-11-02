@@ -38,10 +38,10 @@ jobs:
     
     # 移动security包
     - name: move package security
-      run: pwd && mkdir staging && cd qiniu-server/qiniu-security/ && cp target/*.jar /qiniu/qiniu/staging
+      run: mkdir staging && cd qiniu-server/qiniu-security/ && cp target/*.jar Qiniu/Qiniu/staging
     # 移动video包  
     - name: move package video
-      run: cd qiniu-server/qiniu-video/ && cp target/*.jar /qiniu/qiniu/staging
+      run: cd qiniu-server/qiniu-video/ && cp target/*.jar Qiniu/Qiniu/staging
     - name: show path
       run: cd qiniu && pwd && ls 
     - uses: actions/upload-artifact@v3
