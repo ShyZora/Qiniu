@@ -53,7 +53,7 @@ jobs:
       with:  
         username: 'root'   #ssh user name
         server: '${{ secrets.SERVER_IP }}' #引用之前创建好的secret
-        password: ${{ secrets.PASSWORD }} #引用之前创建好的secret
+        ssh_private_key: ${{ secrets.PASSWORD }} #引用之前创建好的secret
         local_path: './staging/*'  # 对应我们项目build的文件夹路径
         remote_path: '/www/qiniu'
   # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
