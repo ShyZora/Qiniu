@@ -43,7 +43,7 @@ jobs:
     - name: move package video
       run: cd qiniu-server/qiniu-video/ && cp target/*.jar staging
     - name: show path
-      run: pwd && cd .. && pwd
+      run: pwd && ls && cd .. && pwd && ls
     - uses: actions/upload-artifact@v3
       with:
         name: Package
