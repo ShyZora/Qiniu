@@ -13,30 +13,33 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [14.x, 16.x, 18.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
+          # 获取源码
     steps:
-    - run: tree
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+      - name: 迁出代码
+        # 使用action库  actions/checkout获取源码
+        uses: actions/checkout@master
+
+      # 安装node
+      - name: 安装node.js
+        # 使用action库 actions/setup-node 安装node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 18.13.0
+
+      # 安装依赖
+      - name: 安装依赖
+        run: npm install
+
+      # 打包
+      - name: 打包
+        run: npm run build
     
-    - name: deploy file to server
-      uses: zhenyuWang/Upload-File-Action@v1.0.1
-      with:  
-        username: 'root'   #ssh user name
-        server: '${{ secrets.SERVER_IP }}' #引用之前创建好的secret
-        port: 22
-        ssh_private_key: ${{ secrets.test }} #引用之前创建好的secret
-        local_path: "./dist/*"  # 对应我们项目build的文件夹路径
-        target_path: '/www/qiniu/web'
+      - name: deploy file to server
+        uses: zhenyuWang/Upload-File-Action@v1.0.1
+        with:  
+          username: 'root'   #ssh user name
+          server: '${{ secrets.SERVER_IP }}' #引用之前创建好的secret
+          port: 22
+          ssh_private_key: ${{ secrets.test }} #引用之前创建好的secret
+          local_path: "./dist/*"  # 对应我们项目build的文件夹路径
+          target_path: '/www/qiniu/web'
