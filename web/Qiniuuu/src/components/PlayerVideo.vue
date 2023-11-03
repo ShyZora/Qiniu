@@ -4,8 +4,8 @@
 
         </div>
         <div class="info">
-            <p>@{{ urlarr[index].upuser }}<span
-                    style="font-size: 15px;margin-left: 20px; color: grey;">.{{ urlarr[index].upTime }}</span></p>
+            <p>@{{ urlarr[index].upuser }}<span style="font-size: 15px;margin-left: 20px; color: grey;">.{{
+                urlarr[index].upTime }}</span></p>
             <p>{{ urlarr[index].text }}<span v-for="item in urlarr[index].tag">#<span @click="skipTag(item)"
                         style="color: rgb(230, 230, 137);cursor: pointer;">{{ item }}</span></span></p>
             <p></p>
@@ -93,14 +93,14 @@ export default {
                 volume: 0.3,
                 url: url,
                 playsinline: true,
-                thumbnail: {
-                    pic_num: 44,
-                    width: 160,
-                    height: 90,
-                    col: 10,
-                    row: 10,
-                    urls: [url],
-                },
+                // thumbnail: {
+                //     pic_num: 44,
+                //     width: 160,
+                //     height: 90,
+                //     col: 10,
+                //     row: 10,
+                //     urls: [url],
+                // },
                 // icons: {
                 //     loadingIcon:`<div class='customclass'><img src="..assets/img/loading.jpg"/></div>`
                 // },
@@ -111,7 +111,7 @@ export default {
                             id: '1',
                             start: 3000,
                             txt: '长弹幕长弹幕长弹幕长弹幕长弹幕',
-                            style: { //弹幕自定义样式
+                            style: {  //弹幕自定义样式
                                 color: '#ff9500',
                                 fontSize: '20px',
                                 border: 'solid 1px #ff9500',
@@ -135,36 +135,30 @@ export default {
                 download: true,
                 height: 630,
                 width: 1300,
-                playNext: {
-                    urlList: [
-                        'url1',
-                        'url2',
-                        'url3'
-                    ],
-                },
                 pip: true,
             });
 
         },
         skipTag(item) {
-            let path='/home'
+            let path = '/home'
             if (item === '音乐') {
-                path='/music'
+                path = '/music'
             } else if (item === '运动') {
-                path='/sports'
+                path = '/sports'
             }
             else if (item === '游戏') {
-                path='/game'
+                path = '/game'
             }
             else if (item === '时尚') {
-                path='/fashion'
+                path = '/fashion'
             }
-            
+
             else if (item === '娱乐') {
-                path='/recreation'
+                path = '/recreation'
             }
-            if(this.$route.path !==path && !(this.$route.path==='/home' &&(path==='/'))){
-                this.$router.push(path)}
+            if (this.$route.path !== path && !(this.$route.path === '/home' && (path === '/'))) {
+                this.$router.push(path)
+            }
         },
 
         handleKeyUp(event) {
@@ -176,21 +170,21 @@ export default {
                 if (this.index != 0) {
                     this.index -= 1
                     this.init(this.urlarr[this.index].url)
-                    this.$emit('dataDelivery',this.index)
+                    this.$emit('dataDelivery', this.index)
                 } else {
                     this.index = this.urlarr.length - 1
                     this.init(this.urlarr[this.urlarr.length - 1].url)
-                    this.$emit('dataDelivery',this.index)
+                    this.$emit('dataDelivery', this.index)
                 }
             } else if (event.keyCode === 40) {
                 if (this.index != this.urlarr.length - 1) {
                     this.index += 1
                     this.init(this.urlarr[this.index].url)
-                    this.$emit('dataDelivery',this.index)
+                    this.$emit('dataDelivery', this.index)
                 } else {
                     this.index = 0
                     this.init(this.urlarr[0].url)
-                    this.$emit('dataDelivery',this.index)
+                    this.$emit('dataDelivery', this.index)
                     this.$message({
                         showClose: true,
                         message: '抱歉暂无更多视频,为您从头播放',

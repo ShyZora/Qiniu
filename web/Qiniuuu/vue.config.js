@@ -12,9 +12,5 @@ module.exports = defineConfig({
       nodeIntegration: true
     }
   },
-  devServer: {
-    proxy: {
-      ws: false
-    }
-  }
+  
 })
