@@ -28,11 +28,11 @@ jobs:
         
       # 安装依赖
       - name: 安装依赖
-        run: cd web && npm install
+        run: cd web/Qiniuuu && npm install
 
       # 打包
       - name: 打包
-        run: cd web && npm run build
+        run: cd web/Qiniuuu && npm run build
     
       - name: deploy file to server
         uses: zhenyuWang/Upload-File-Action@v1.0.1
@@ -41,5 +41,5 @@ jobs:
           server: '${{ secrets.SERVER_IP }}' #引用之前创建好的secret
           port: 22
           ssh_private_key: ${{ secrets.test }} #引用之前创建好的secret
-          local_path: "./dist/*"  # 对应我们项目build的文件夹路径
+          local_path: "web/Qiniuuu/dist/*"  # 对应我们项目build的文件夹路径
           target_path: '/www/qiniu/web'
