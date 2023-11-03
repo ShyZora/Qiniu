@@ -1,0 +1,45 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: web-publish
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+          # 获取源码
+    steps:
+      - name: 迁出代码
+        # 使用action库  actions/checkout获取源码
+        uses: actions/checkout@master
+
+      # 安装node
+      - name: 安装node.js
+        # 使用action库 actions/setup-node 安装node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 18.13.0
+        
+      # 安装依赖
+      - name: 安装依赖
+        run: cd web/Qiniuuu && npm install
+
+      # 打包
+      - name: 打包
+        run: cd web/Qiniuuu && npm run build
+    
+      - name: deploy file to server
+        uses: zhenyuWang/Upload-File-Action@v1.0.1
+        with:  
+          username: 'root'   #ssh user name
+          server: '${{ secrets.SERVER_IP }}' #引用之前创建好的secret
+          port: 22
+          ssh_private_key: ${{ secrets.test }} #引用之前创建好的secret
+          local_path: "web/Qiniuuu/dist/*"  # 对应我们项目build的文件夹路径
+          target_path: '/www/qiniu/web'
