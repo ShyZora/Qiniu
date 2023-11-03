@@ -38,11 +38,11 @@ jobs:
     
     # 移动security包
     - name: move package security
-      run: cd .. && mkdir staging && cd Qiniu/qiniu-server/qiniu-security/target && pwd && cp -r *.jar ~/work/Qiniu/staging
+      run: mkdir staging && cd Qiniu/qiniu-server/qiniu-security/target && pwd && cp -r *.jar ~/work/Qiniu/Qiniu/staging
 
     # 移动video包  
     - name: move package video
-      run:  cd .. && ls && cd Qiniu/qiniu-server/qiniu-video/ && cp -r target/*.jar ~/work/Qiniu/staging
+      run:  cd .. && ls && cd Qiniu/qiniu-server/qiniu-video/ && cp -r target/*.jar ~/work/Qiniu/Qiniu/staging
 
     - uses: actions/upload-artifact@v3
       with:
@@ -60,7 +60,7 @@ jobs:
         server: '${{ secrets.SERVER_IP }}' #引用之前创建好的secret
         port: 22
         ssh_private_key: ${{ secrets.test }} #引用之前创建好的secret
-        local_path: "/home/runner/work/Qiniu/staging"  # 对应我们项目build的文件夹路径
+        local_path: "./staging/*"  # 对应我们项目build的文件夹路径
         target_path: '/www/qiniu'
   # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     # - name: Update dependency graph
