@@ -55,7 +55,10 @@ jobs:
     #   run: cd staging && pwd && ls
     
     - name: show path
-      run: cd .. && pwd && ls && cd staging && ls && cd ..
+      run: cd .. && pwd && ls && cd staging
+    
+    - name: show staging path
+      run: pwd && ls && cd ..
 
     # 利用action把build好的文件上传到服务器/www/qiniu路径下,需要确认此目录已在服务端创建
     - name: deploy file to server
