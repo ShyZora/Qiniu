@@ -3,6 +3,7 @@ package com.video.controller;
 import com.common.model.ResponseResult;
 import com.qiniu.common.QiniuException;
 import com.video.config.CurrentUser;
+import com.video.model.dto.IdDto;
 import com.video.model.dto.PublishVideoDto;
 import com.video.service.IQiniuService;
 import com.video.service.VideoService;
@@ -47,8 +48,14 @@ public class VideoController {
     }
 
     @PostMapping("delete")
-    public ResponseResult deleteVideo(Long videoId){
-        return videoService.deleteVideo(videoId);
+    public ResponseResult deleteVideo(@RequestBody IdDto idDto){
+        return videoService.deleteVideo(idDto.getId());
+    }
+
+    @PostMapping("favourite")
+    public ResponseResult favouriteVideo(@RequestBody IdDto idDto){
+        System.out.println(idDto.getId());
+        return null;
     }
 
     @GetMapping("user/feed")
