@@ -75,13 +75,13 @@ public class QiniuServiceImpl implements IQiniuService, InitializingBean {
 
 
     @Override
-    public String delete(String key) throws QiniuException {
+    public Integer delete(String key) throws QiniuException {
         Response response = bucketManager.delete(this.bucket, key);
         int retry = 0;
         while (response.needRetry() && retry++ < 3) {
             response = bucketManager.delete(bucket, key);
         }
-        return response.statusCode == 200 ? "删除成功!" : "删除失败!";
+        return response.statusCode;
     }
 
     @Override
