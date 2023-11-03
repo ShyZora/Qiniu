@@ -49,8 +49,8 @@ jobs:
         name: Package
         path: staging
     
-    # - name: show path
-    #   run: cd ../../ && tree
+    - name: show path
+      run: ls ~/work/Qiniu/staging/
 
     # 利用action把build好的文件上传到服务器/www/qiniu路径下,需要确认此目录已在服务端创建
     - name: deploy file to server
