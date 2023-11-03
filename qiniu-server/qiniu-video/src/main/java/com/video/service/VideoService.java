@@ -16,5 +16,7 @@ public interface VideoService extends IService<Video> {
     ResponseResult categoryVideo(Long categoryId);
 
     ResponseResult userVideo(Long userId);
+
+    ResponseResult deleteVideo(Long videoId);
 }
 

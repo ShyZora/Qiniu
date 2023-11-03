@@ -45,6 +45,11 @@ public class VideoController {
         return videoService.categoryVideo(categoryId);
     }
 
+    @PostMapping("delete")
+    public ResponseResult deleteVideo(Long videoId){
+        return videoService.deleteVideo(videoId);
+    }
+
     @GetMapping("user/feed")
     public ResponseResult userVideo(Long userId){
         System.out.println("用户视频controller");
