@@ -51,14 +51,8 @@ jobs:
         name: Package
         path: staging
     
-    # - name: show path
-    #   run: cd staging && pwd && ls
-    
     - name: show path
-      run: cd .. && pwd && ls && cd staging
-    
-    - name: show staging path
-      run: pwd && ls && cd ..
+      run: cd .. && pwd && ls && cd staging && ls -a
 
     # 利用action把build好的文件上传到服务器/www/qiniu路径下,需要确认此目录已在服务端创建
     - name: deploy file to server
@@ -68,7 +62,7 @@ jobs:
         server: '${{ secrets.SERVER_IP }}' #引用之前创建好的secret
         port: 22
         ssh_private_key: ${{ secrets.test }} #引用之前创建好的secret
-        local_path: './staging/*'  # 对应我们项目build的文件夹路径
+        local_path: '/home/runner/work/Qiniu/staging/*'  # 对应我们项目build的文件夹路径
         target_path: '/www/qiniu'
   # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     # - name: Update dependency graph
