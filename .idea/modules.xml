@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Qiniu.iml" filepath="$PROJECT_DIR$/.idea/Qiniu.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qiniu-server/qiniu-security/qiniu-security.iml" filepath="$PROJECT_DIR$/qiniu-server/qiniu-security/qiniu-security.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qiniu-server/qiniu-video/qiniu-video.iml" filepath="$PROJECT_DIR$/qiniu-server/qiniu-video/qiniu-video.iml" />
+    </modules>
+  </component>
+</project>

@@ -13,7 +13,7 @@ spring:
     timeout: 1000           # 连接超时时间（毫秒）
   datasource:
     url: jdbc:mysql://localhost:3306/qiniu?serverTimezone=UTC&userUnicode=true&useSSL=false&
-    password: 2002.06.25abcj
+    password: admin
     username: root
 
     driver-class-name: com.mysql.cj.jdbc.Driver
