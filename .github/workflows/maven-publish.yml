@@ -38,14 +38,14 @@ jobs:
     
     # 移动security包
     - name: move package security
-      run: cd .. && mkdir staging && cd Qiniu/qiniu-server/qiniu-security/target && pwd && cp -r *.jar ../../../staging
+      run: cd .. && mkdir staging && cd Qiniu/qiniu-server/qiniu-security/target && pwd && cp -r *.jar ~/home/runner/work/Qiniu/staging
     
     - name: show path
       run : pwd && cd ../staging && ls
 
     # 移动video包  
     - name: move package video
-      run:  cd .. && ls && cd Qiniu/qiniu-server/qiniu-video/ && cp -r target/*.jar ../../../Qiniu/staging
+      run:  cd .. && ls && cd Qiniu/qiniu-server/qiniu-video/ && cp -r target/*.jar ~/home/runner/work/Qiniu/staging
     
     - name: show path
       run: cd .. && pwd && ls 
