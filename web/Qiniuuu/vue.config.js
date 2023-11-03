@@ -4,7 +4,7 @@ const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
   configureWebpack: {
     plugins: [new NodePolyfillPlugin()],
-    resolve: { fallback: { fs: false ,tls:false,net:false} }
+    resolve: { fallback: { fs: false, tls: false, net: false } }
   },
   transpileDependencies: true,
   pluginOptions: {
@@ -12,4 +12,9 @@ module.exports = defineConfig({
       nodeIntegration: true
     }
   },
+  devServer: {
+    proxy: {
+      ws: false
+    }
+  }
 })

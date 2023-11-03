@@ -7,27 +7,19 @@
                 </el-input>
             </div>
             <div class="right">
-                <el-row :gutter="10" style="width: 280px;">
-                    <el-col :span="4">
-                        <div class="grid-content bg-purple">通知</div>
+                <el-row :gutter="10" style="width: 200px;">
+                    <el-col :span="10">
+                        <upVideo />
                     </el-col>
-                    <el-col :span="5">
-                        <div class="grid-content bg-purple-light">私信</div>
-                    </el-col>
-                    <el-col :span="5">
-                        <!-- <upVideo/> -->
-                    </el-col>
-                    <el-col :span="9" style="margin-top: -12px;">
-                        <el-button type="danger" round style="padding: 8px 27px;"
-                            @click="dialogVisible = true">登录</el-button>
+                    <el-col :span="14">
+                        <login></login>
                     </el-col>
                 </el-row>
             </div>
 
-
         </div>
         <div>
-            
+
         </div>
     </div>
 </template>
@@ -40,7 +32,9 @@ export default {
     data() {
         return {
             input: "",
-            dialogVisible: false
+            dialogVisible: false,
+            username: '',
+            password: ''
         }
     },
     components: {
@@ -51,7 +45,7 @@ export default {
         handleClose(done) {
             done()
         },
-        
+        login(){}
     }
     // handleCommand(command){
     //     if(command=='a'){
@@ -76,18 +70,24 @@ export default {
 .center {
 
     padding: 12px 0;
-    width: 300px;
+    width: 240px;
+    height: 30px;
 }
-.el-dialog__headerbtn{
+
+.el-dialog__headerbtn {
     top: -5px;
     right: -235px;
 }
+
 .right {
     float: right;
-    width: 300px;
+    width: 210px;
     margin-top: -44px;
-    margin-left: -20px;
+    // margin-left: -20px;
     font-size: 13px;
     color: white;
+}
+ .el-input__inner{
+    background-color: transparent !important;
 }
 </style>

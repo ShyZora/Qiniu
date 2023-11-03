@@ -2,10 +2,10 @@
     <div class="homePage">
         <div class="home">
             <div width="auto" class="aside">
-                <Aside></Aside>
+                <Aside :urlarr="urlarr[index]"></Aside>
             </div>
             <div class="main">
-                <PlayerVideo></PlayerVideo>
+                <PlayerVideo :urlarr="urlarr" @dataDelivery="dataDelivery"></PlayerVideo>
             </div>
 
         </div>
@@ -14,13 +14,82 @@
 </template>
 
 <script>
+var axios = require('axios');
 import Aside from '/src/components/aside.vue'
 import PlayerVideo from "/src/components/PlayerVideo.vue";
 export default {
     name: 'mainPage',
     data() {
         return {
-           
+            urlarr:
+                [
+                    {
+                        url: 'http://s35y978n4.bkt.clouddn.com/test1.mp41698928518604',
+                        upuser: '用户12138',
+                        upTime: '2023-11-27',
+                        text: '愿意沉溺在世界里',
+                        tag: ['生活', '时尚'],
+                        collect: Boolean,
+                        likeed: Boolean,
+                        comment: [
+                            {
+                                commentUser: '用户233',
+                                commentText: '真好玩',
+                                commentTime: '2023-11-03',
+                            },
+                            {
+                                commentUser: '用户133',
+                                commentText: '很beautiful',
+                                commentTime: '2023-11-04',
+                            }
+                        ],
+
+                    },
+                    {
+                        url: 'http://s35y978n4.bkt.clouddn.com/test2.mp41698930622104',
+                        upuser: '用户12138',
+                        upTime: '2023-11-27',
+                        text: '愿意沉溺在世界里',
+                        tag: ['生活', '时尚'],
+                        collect: Boolean,
+                        likeed: Boolean,
+                        comment: [
+                            {
+                                commentUser: 'dier用户233',
+                                commentText: 'dier真好玩',
+                                commentTime: '2023-11-03',
+                            },
+                            {
+                                commentUser: 'dier用户133',
+                                commentText: 'dier很beautiful',
+                                commentTime: 'dier2023-11-04',
+                            }
+                        ],
+
+                    },
+                    // 'http://s35y978n4.bkt.clouddn.com/test1.mp41698928518604',
+                    // ' http://s35y978n4.bkt.clouddn.com/test1.mp41698928580785',
+                    // 'http://s35y978n4.bkt.clouddn.com/test1.mp41698930474229',
+                    // 'http://s35y978n4.bkt.clouddn.com/test2.mp4',
+                    // 'http://s35y978n4.bkt.clouddn.com/test2.mp41698929826131',
+                    // 'http://s35y978n4.bkt.clouddn.com/test2.mp41698929875514',
+                    // 'http://s35y978n4.bkt.clouddn.com/test2.mp41698930622104',
+                    // 'http://s35y978n4.bkt.clouddn.com/test3.mp41698929979985',
+                    // 'http://s35y978n4.bkt.clouddn.com/testbig.mp41698928867912',
+                    // 'http://s35y978n4.bkt.clouddn.com/testbig.mp41698930247891',
+                    // 'http://s35y978n4.bkt.clouddn.com/testbig.mp41698930336898',
+                    // 'http://s35y978n4.bkt.clouddn.com/testbig.mp41698930536997',
+                    // 'http://s35y978n4.bkt.clouddn.com/testbig.mp41698930629850',
+                    // 'http://s35y978n4.bkt.clouddn.com/testbig.mp41698930665690',
+                    // 'http://s35y978n4.bkt.clouddn.com/testbig.mp41698930695096',
+                    // 'http://s35y978n4.bkt.clouddn.com/testbig.mp41698930791675',
+                    // ' http://s35y978n4.bkt.clouddn.com/testbig.mp41698930853301',
+                    // 'http://s35y978n4.bkt.clouddn.com/testbig.mp41698930960447',
+                    // 'http://s35y978n4.bkt.clouddn.com/testbig.mp41698931002307'
+
+                    //接收视频储存列表
+                ],
+            index: 0
         }
     },
     components: {
@@ -28,9 +97,28 @@ export default {
         PlayerVideo
     },
     methods: {
-   
-  
-  },
+        getVideo() {
+            // axios({
+            //     method: 'get',
+            //     url: 'video/feed',
+            //     headers: {
+            //         'User-Agent': 'Apifox/1.0.0 (https://apifox.com)'
+            //     }
+            // }).then(function (response) {
+            //     console.log(response.data);
+            // })
+            //     .catch(function (error) {
+            //         console.log(error);
+            //     });
+        },
+        dataDelivery(value) {
+            this.index = value
+            console.log(this.index)
+        }
+    },
+    mounted() {
+        this.getVideo()
+    }
 }
 </script>
 <style scoped>
@@ -39,7 +127,8 @@ export default {
     height: 98%;
     background-color: black;
 }
-.playerVideo{
+
+.playerVideo {
     width: 100%;
     height: 100%;
 }

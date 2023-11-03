@@ -1,0 +1,62 @@
+let user={
+    userId:'',
+    userPassward:'',
+    collect:[
+        {
+            url:'',
+            upuser:'',
+            upTime:'',
+            text:'',
+            tag:[],
+            likeed:Boolean,
+            collect:true,
+            comment:[
+                {
+                    commentUser:'',
+                    commentText:'',
+                    commentTime:'',
+                }
+            ],
+
+        }
+    ],
+    like:[
+        {
+            url:'',
+            upuser:'',
+            upTime:'',
+            text:'',
+            tag:[],
+            likeed:true,
+            collect:Boolean,
+            comment:[
+                {
+                    commentUser:'',
+                    commentText:'',
+                    commentTime:'',
+                }
+            ],
+
+        }
+    ]
+}
+let videoArr=[
+    {
+        url:'',//视频链接
+        poster:'',//封面
+        upuser:'',//发布用户
+        upTime:'',//发布时间
+        text:'',//发布文案
+        tag:[],//视频tag
+        collect:Boolean,//是否收藏
+        likeed:Boolean,//是否喜欢
+        comment:[//评论内容
+            {
+                commentUser:'',//评论用户
+                commentText:'',//评论文本
+                commentTime:'',//评论时间
+            }
+        ],
+
+    }
+]

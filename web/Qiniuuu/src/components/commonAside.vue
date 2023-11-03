@@ -61,46 +61,46 @@
                 path:'/collect',
                 name:'collect',
                 label:'收藏',
-                icon:'user',
+                icon:'star-on',
                 url:'collect/collect'
                 },
                 {
                 label:'分类',
-                icon:'location',
+                icon:'magic-stick',
                 children:[
                     {
                     path:'/game',
                     name:'game',
                     label:'游戏',
-                    icon:'setting',
+                    icon:'magic-stick',
                     url:'classification/game'
                     },
                     {
                     path:'/sports',
                     name:'sports',
                     label:'运动',
-                    icon:'setting',
+                    icon:'soccer',
                     url:'classification/sports'
                     },
                     {
                     path:'/fashion',
                     name:'fashion',
                     label:'时尚',
-                    icon:'setting',
+                    icon:'sell',
                     url:'classification/fashion'
                     },
                     {
                     path:'/music',
                     name:'music',
                     label:'音乐',
-                    icon:'setting',
+                    icon:'headset',
                     url:'classification/music'
                     },
                     {
                     path:'/recreation',
                     name:'recreation',
                     label:'娱乐',
-                    icon:'setting',
+                    icon:'sunny',
                     url:'classification/recreation'
                     },
                 ]
@@ -122,7 +122,7 @@
                 this.$router.push(path)
             }
             console.log(list)
-            this.$store.commit('bread',list)
+
           }
         },
         computed:{

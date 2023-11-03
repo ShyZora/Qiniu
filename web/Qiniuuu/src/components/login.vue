@@ -1,10 +1,16 @@
 <template>
-    <div class="login-container">
-        <form>
-            <input type="text" placeholder="请输入用户名" v-model="username" />
-            <input type="password" placeholder="请输入密码" v-model="password" />
-            <button @click.prevent="login">登录</button>
-        </form>
+    <div>
+        <el-popover placement="right" width="200" trigger="click">
+            <div>
+                <form>
+                    <input type="text" placeholder="请输入用户名" v-model="username" />
+                    <input type="password" placeholder="请输入密码" v-model="password" />
+                    <button @click.prevent="login">登录</button>
+                </form>
+            </div>
+            <el-button type="danger" round size="small" style="width: 80px;height: 35px;" slot="reference"><i
+                    class="el-icon-user-solid"></i><span style="width: 5px;" slot="reference"></span>登录</el-button>
+        </el-popover>
     </div>
 </template>
 <script>

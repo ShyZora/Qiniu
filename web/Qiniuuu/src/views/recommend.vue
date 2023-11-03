@@ -1,37 +1,47 @@
 <template>
-    <div>
+    <div class="recommend">
+        <div class="recommend">
+            <div width="auto" class="aside">
+                <Aside></Aside>
+            </div>
+            <div class="main">
+                <PlayerVideo></PlayerVideo>
+            </div>
 
-        <upVideo />
+        </div>
 
     </div>
 </template>
 
 <script>
-import upVideo from '../components/upVideo.vue'
+import Aside from '/src/components/aside.vue'
+import PlayerVideo from "/src/components/PlayerVideo.vue";
 export default {
-    name: 'home',
+    name: 'mainPage',
     data() {
         return {
-            input: "",
-            dialogVisible: false
+
         }
     },
     components: {
-        upVideo
+        Aside,
+        PlayerVideo
     },
     methods: {
 
-    }
-    // handleCommand(command){
-    //     if(command=='a'){
-    //         Cookie.remove('token')
-    //         this.$router.push('/login')
-    //     }
 
-
-    // }
+    },
 }
 </script>
-<style lang="less" scoped>
+<style scoped>
+.homePage {
+    width: 100%;
+    height: 98%;
+    background-color: black;
+}
 
+.playerVideo {
+    width: 100%;
+    height: 100%;
+}
 </style>
