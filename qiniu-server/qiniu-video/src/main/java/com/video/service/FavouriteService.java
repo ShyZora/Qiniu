@@ -1,6 +1,7 @@
 package com.video.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.common.model.ResponseResult;
 import com.video.model.po.Favourite;
 
 /**
@@ -11,5 +12,10 @@ import com.video.model.po.Favourite;
  */
 public interface FavouriteService extends IService<Favourite> {
 
+    ResponseResult favouriteVideo(Long id);
+
+    ResponseResult unFavouriteVideo(Long id);
+
+    ResponseResult getFavouriteVideo();
 }
 

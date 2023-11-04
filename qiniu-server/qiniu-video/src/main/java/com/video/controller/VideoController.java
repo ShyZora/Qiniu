@@ -5,6 +5,7 @@ import com.qiniu.common.QiniuException;
 import com.video.config.CurrentUser;
 import com.video.model.dto.IdDto;
 import com.video.model.dto.PublishVideoDto;
+import com.video.service.FavouriteService;
 import com.video.service.IQiniuService;
 import com.video.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class VideoController {
     private VideoService videoService;
     @Autowired
     private IQiniuService qiniuService;
+
+    @Autowired
+    private FavouriteService favouriteService;
     @GetMapping("feed")
     public ResponseResult Feed(){
         return  videoService.feed();
@@ -54,13 +58,21 @@ public class VideoController {
 
     @PostMapping("favourite")
     public ResponseResult favouriteVideo(@RequestBody IdDto idDto){
-        System.out.println(idDto.getId());
-        return null;
+        return favouriteService.favouriteVideo(idDto.getId());
     }
 
     @GetMapping("user/feed")
     public ResponseResult userVideo(Long userId){
         System.out.println("用户视频controller");
         return videoService.userVideo(userId);
+    }
+
+    @PostMapping("unfavourite")
+    public ResponseResult unFavouriteVideo(@RequestBody IdDto idDto){
+        return favouriteService.unFavouriteVideo(idDto.getId());
+    }
+    @GetMapping("favourite")
+    public ResponseResult getFavouriteVideo(){
+        return favouriteService.getFavouriteVideo();
     }
 }
