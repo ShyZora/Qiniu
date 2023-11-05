@@ -3,6 +3,7 @@ package com.video.controller;
 import com.common.model.ResponseResult;
 import com.qiniu.common.QiniuException;
 import com.video.model.dto.PublishVideoDto;
+import com.video.model.po.Video;
 import com.video.service.IQiniuService;
 import com.video.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,5 +56,11 @@ public class VideoController {
     public ResponseResult userVideo(Long userId) {
         System.out.println("用户视频controller");
         return videoService.userVideo(userId);
+    }
+
+    // 点赞 // 收藏 // 转发更新 （视频）
+    @PostMapping("user/videoUpdateInfo")
+    public ResponseResult VideoUpdateInfo(@RequestBody Video video) {
+        return videoService.videoUpdateInfo(video);
     }
 }

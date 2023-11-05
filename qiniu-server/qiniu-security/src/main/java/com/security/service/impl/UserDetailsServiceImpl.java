@@ -18,8 +18,6 @@ import java.util.Objects;
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserMapper userMapper;
-    @Autowired
-    private MenuMapper menuMapper;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper();
