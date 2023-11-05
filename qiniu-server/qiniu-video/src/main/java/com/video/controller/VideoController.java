@@ -57,10 +57,4 @@ public class VideoController {
         System.out.println("用户视频controller");
         return videoService.userVideo(userId);
     }
-
-    // 点赞 // 收藏 // 转发更新 （视频）
-    @PostMapping("user/videoUpdateInfo")
-    public ResponseResult VideoUpdateInfo(@RequestBody Video video) {
-        return videoService.videoUpdateInfo(video);
-    }
 }

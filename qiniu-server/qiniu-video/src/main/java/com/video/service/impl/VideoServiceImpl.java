@@ -3,16 +3,16 @@ package com.video.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.baomidou.mybatisplus.extension.conditions.update.UpdateChainWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.common.model.ResponseResult;
 import com.qiniu.common.QiniuException;
 import com.video.dao.VideoDao;
 import com.video.model.po.Video;
-import com.video.pojo.UpdateVideo;
 import com.video.service.IQiniuService;
 import com.video.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.connection.RedisServer;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -78,10 +78,37 @@ public class VideoServiceImpl extends ServiceImpl<VideoDao, Video> implements Vi
     }
 
     @Override
-    public ResponseResult videoUpdateInfo(Video video) {
+    public ResponseResult videoUpdateLikeInfo(Long id,Long likeNum) {
+        UpdateWrapper<Video> videoWrapper = new UpdateWrapper<>();
+        try {
+            videoWrapper.eq("id",id)
+                    .set("like_num",likeNum);
+            update(videoWrapper);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseResult(HttpStatus.FORBIDDEN.value(), "更新失败,请重试");
+        }
+        return new ResponseResult(HttpStatus.OK.value(), "更新成功");
+    }
+    @Override
+    public ResponseResult videoUpdateFavouriteInfo(Long id, Long favouriteNum) {
         LambdaUpdateWrapper<Video> wrapper = new LambdaUpdateWrapper<>();
         try {
-            videoDao.update(video, wrapper);
+            wrapper.eq(Video::getId,id)
+                    .set(Video::getFavouriteNum,favouriteNum);
+            update(wrapper);
+        } catch (Exception e) {
+            return new ResponseResult(HttpStatus.FORBIDDEN.value(), "更新失败,请重试");
+        }
+        return new ResponseResult(HttpStatus.OK.value(), "更新成功");
+    }
+    @Override
+    public ResponseResult videoUpdateShareInfo(Long id, Long shareNum) {
+        LambdaUpdateWrapper<Video> wrapper = new LambdaUpdateWrapper<>();
+        try {
+            wrapper.eq(Video::getId,id)
+                    .set(Video::getShareNum,shareNum);
+            update(wrapper);
         } catch (Exception e) {
             return new ResponseResult(HttpStatus.FORBIDDEN.value(), "更新失败,请重试");
         }

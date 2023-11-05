@@ -14,10 +14,12 @@ import com.video.service.VideoService;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.InputStream;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Service
@@ -95,7 +97,7 @@ public class QiniuServiceImpl implements IQiniuService, InitializingBean {
         Video video = new Video();
         video.setTitle(publishVideoDto.getTitle());
         video.setUserId(publishVideoDto.getUserId());
-        video.setPublishTime(new Date());
+        video.setUpdateTime(LocalDateTime.now());
         video.setCoverUrl("null");
         videoService.save(video);
         return ResponseResult.okResult();
