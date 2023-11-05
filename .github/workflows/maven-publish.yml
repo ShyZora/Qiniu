@@ -44,6 +44,10 @@ jobs:
       - name: move package video
         run: cd qiniu-server/qiniu-video/ && cp -r target/*.jar ~/work/Qiniu/Qiniu/staging
 
+      # 移动category包
+      - name: move package category
+        run: cd qiniu-server/qiniu-category/ && cp -r target/*.jar ~/work/Qiniu/Qiniu/staging
+
       - uses: actions/upload-artifact@v3
         with:
           name: Package
