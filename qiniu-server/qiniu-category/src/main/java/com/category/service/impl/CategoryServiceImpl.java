@@ -10,6 +10,7 @@ import com.common.model.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,7 @@ public class CategoryServiceImpl implements CategoryService {
         return new ResponseResult(HttpStatus.OK.value(), "获取成功", arrayList);
     }
 
+    @Transactional
     @Override
     public ResponseResult getCategoryTagList(Integer id) {
         LambdaQueryWrapper<Video> wrapper = new LambdaQueryWrapper<>();
@@ -42,7 +44,6 @@ public class CategoryServiceImpl implements CategoryService {
             wrapper.eq(Video::getCategoryId, id);
             categoryList = videoMapper.selectList(wrapper);
         } catch (Exception e) {
-            e.printStackTrace();
             return new ResponseResult(HttpStatus.FORBIDDEN.value(), "获取失败，请检查传入的ID值是否正确");
         }
         return new ResponseResult(HttpStatus.OK.value(), "获取成功", categoryList);
