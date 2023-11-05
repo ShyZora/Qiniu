@@ -2,8 +2,9 @@ package com.video.controller;
 
 import com.common.model.ResponseResult;
 import com.qiniu.common.QiniuException;
+import com.video.config.CurrentUser;
+import com.video.model.dto.IdDto;
 import com.video.model.dto.PublishVideoDto;
-import com.video.model.po.Video;
 import com.video.service.IQiniuService;
 import com.video.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,8 @@ public class VideoController {
     }
     @GetMapping("sda")
     public void testUpload() throws QiniuException {
-        String result = qiniuService.uploadFile(new File("C:\\Users\\world\\Pictures\\1688129525236.jpg"), "video\\688129525236.jpg");
-        System.out.println("访问地址： " + result);
+        //String result = qiniuService.uploadFile(new File("C:\\Users\\world\\Pictures\\1688129525236.jpg"), "video\\688129525236.jpg");
+        System.out.println(CurrentUser.getUserId());
     }
     @GetMapping("upload")
     public ResponseResult uploadToken(){
@@ -41,26 +42,25 @@ public class VideoController {
     public ResponseResult publishVideo(@RequestBody PublishVideoDto publishVideoDto){
         return qiniuService.publish(publishVideoDto);
     }
-
     @GetMapping("category/feed")
-    public ResponseResult categoryVideo(Long categoryId) {
+    public ResponseResult categoryVideo(Long categoryId){
         return videoService.categoryVideo(categoryId);
     }
 
     @PostMapping("delete")
-    public ResponseResult deleteVideo(Long videoId) {
-        return videoService.deleteVideo(videoId);
+    public ResponseResult deleteVideo(@RequestBody IdDto idDto){
+        return videoService.deleteVideo(idDto.getId());
+    }
+
+    @PostMapping("favourite")
+    public ResponseResult favouriteVideo(@RequestBody IdDto idDto){
+        System.out.println(idDto.getId());
+        return null;
     }
 
     @GetMapping("user/feed")
-    public ResponseResult userVideo(Long userId) {
+    public ResponseResult userVideo(Long userId){
         System.out.println("用户视频controller");
         return videoService.userVideo(userId);
-    }
-
-    // 点赞 // 收藏 // 转发更新 （视频）
-    @PostMapping("user/videoUpdateInfo")
-    public ResponseResult VideoUpdateInfo(@RequestBody Video video) {
-        return videoService.videoUpdateInfo(video);
     }
 }
