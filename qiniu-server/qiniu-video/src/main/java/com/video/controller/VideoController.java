@@ -2,13 +2,10 @@ package com.video.controller;
 
 import com.common.model.ResponseResult;
 import com.qiniu.common.QiniuException;
-import com.qiniu.storage.UploadManager;
-import com.qiniu.util.Auth;
 import com.video.model.dto.PublishVideoDto;
 import com.video.service.IQiniuService;
 import com.video.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
@@ -42,5 +39,21 @@ public class VideoController {
     @PostMapping("publish")
     public ResponseResult publishVideo(@RequestBody PublishVideoDto publishVideoDto){
         return qiniuService.publish(publishVideoDto);
+    }
+
+    @GetMapping("category/feed")
+    public ResponseResult categoryVideo(Long categoryId) {
+        return videoService.categoryVideo(categoryId);
+    }
+
+    @PostMapping("delete")
+    public ResponseResult deleteVideo(Long videoId) {
+        return videoService.deleteVideo(videoId);
+    }
+
+    @GetMapping("user/feed")
+    public ResponseResult userVideo(Long userId) {
+        System.out.println("用户视频controller");
+        return videoService.userVideo(userId);
     }
 }

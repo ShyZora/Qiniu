@@ -2,9 +2,9 @@ package com.security.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.security.pojo.User;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -14,6 +14,7 @@ import java.util.List;
  * @author Wcilzo
  * @since 2023-10-28
  */
-@Component
+@Repository
+@Mapper
 public interface UserMapper extends BaseMapper<User> {
 }

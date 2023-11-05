@@ -1,8 +1,9 @@
 package com.security.filter;
 
+import com.alibaba.fastjson.JSON;
 import com.security.pojo.LoginUser;
-import com.security.service.LoginService;
 import com.security.utils.JwtUtil;
+import com.security.utils.RedisCache;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,7 +22,8 @@ import java.util.Objects;
 @Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Autowired
-    private LoginService loginService;
+    private RedisCache redisCache;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         // 获取前端请求头中的 token
@@ -43,7 +45,10 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         }
         // 从内存中拿到 authenticate
         String userKey = "login:" + userId;
-        LoginUser loginUser = loginService.getLoginUser(userKey);
+        JSON json = (JSON) JSON.toJSON(redisCache.getCacheObject(userKey));
+        System.out.println(json + "json");
+        LoginUser loginUser = JSON.toJavaObject(json, LoginUser.class);
+        System.out.println(loginUser.toString());
         if(Objects.isNull(loginUser)) {
             throw new RuntimeException("用户未登录");
         }

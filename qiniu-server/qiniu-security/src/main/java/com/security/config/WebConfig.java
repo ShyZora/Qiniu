@@ -13,15 +13,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebConfig extends WebSecurityConfigurerAdapter {
-
-    @Autowired
-    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
     @Autowired
     private AuthenticationEntryPoint authenticationEntryPoint;
@@ -33,6 +29,9 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
+
+    @Autowired
+    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -49,15 +48,6 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated();
         // 将 token 检验层放在过滤器链前面
         http.addFilterBefore(jwtAuthenticationTokenFilter,UsernamePasswordAuthenticationFilter.class);
-
-        // 配置异常处理器
-        http.exceptionHandling()
-                // 认证失败处理
-                .authenticationEntryPoint(authenticationEntryPoint)
-                .and()
-                // 授权失败处理
-                .exceptionHandling().accessDeniedHandler(accessDeniedHandler)
-                .and()
     }
     // 认证接口
     @Bean

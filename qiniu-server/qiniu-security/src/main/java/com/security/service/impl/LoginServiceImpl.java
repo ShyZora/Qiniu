@@ -1,11 +1,11 @@
 package com.security.service.impl;
 
-import com.baomidou.mybatisplus.extension.api.R;
 import com.common.model.ResponseResult;
+import com.security.utils.JwtUtil;
 import com.security.pojo.LoginUser;
 import com.security.pojo.User;
 import com.security.service.LoginService;
-import com.security.utils.JwtUtil;
+import com.security.utils.RedisCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,7 +21,9 @@ import java.util.Objects;
 public class LoginServiceImpl implements LoginService {
     @Autowired
     private AuthenticationManager authenticationManager;
-    HashMap<String,LoginUser> temporary = new HashMap<>();
+    @Autowired
+    private RedisCache redisCache;
+
     @Override
     public ResponseResult login(User user) {
         // 根据 username 和 密码生成认证
@@ -36,7 +38,7 @@ public class LoginServiceImpl implements LoginService {
         String userId = loginUser.getUser().getId().toString();
         String jwt = JwtUtil.createJWT(userId);
         // 将生成的 authenticate 保存到本地
-        temporary.put("login:" + userId,loginUser);
+        redisCache.setCacheObject("login:" + userId, loginUser);
         // 将token返回给前端
         HashMap<String,String> map = new HashMap<>();
         map.put("token",jwt);
@@ -45,7 +47,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public LoginUser getLoginUser(String userId) {
-        return temporary.get(userId);
+        return (LoginUser) redisCache.getCacheObject(userId);
     }
 
     @Override
@@ -53,7 +55,7 @@ public class LoginServiceImpl implements LoginService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         Long userId = loginUser.getUser().getId();
-        temporary.replace("login:" + userId,null);
+        redisCache.deleteObject("login:" + userId);
         return new ResponseResult(200,"退出成功");
     }
 }

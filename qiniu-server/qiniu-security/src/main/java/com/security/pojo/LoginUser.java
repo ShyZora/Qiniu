@@ -1,36 +1,49 @@
 package com.security.pojo;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
-@Data
 @NoArgsConstructor
+@Data
 public class LoginUser implements UserDetails {
     private User user;
     private List<String> permissions;
     private List<GrantedAuthority> authorities;
 
+
     public LoginUser(User user,List<String> permissions) {
         this.user = user;
-        this.permissions = permissions;
+//        this.permissions = permissions;
     }
 
     // 获得权限信息
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
+
+
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(authorities != null) return authorities;
-        authorities = permissions.stream()
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
-        return authorities;
+//        if(authorities != null) return authorities;
+//        authorities = permissions.stream()
+//                .map(SimpleGrantedAuthority::new)
+//                .collect(Collectors.toList());
+//        return authorities;
+        return null;
     }
 
     @Override

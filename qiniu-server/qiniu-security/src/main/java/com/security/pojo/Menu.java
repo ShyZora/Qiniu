@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName(value = "Menu")
+@TableName(value = "menu")
 public class Menu implements Serializable {
     private static final long serialVersionUID = 1L;
     @TableId
