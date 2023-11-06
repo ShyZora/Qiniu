@@ -21,13 +21,13 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("favourite")
-public class Favourite extends Model<Favourite> {
+@TableName("good_video")
+public class Like extends Model<Like> {
     @TableId(value="id",type = IdType.AUTO )
     private Long id;
-    
+
     private Long userId;
-    
+
     private Long videoId;
 
     private String title;
@@ -49,5 +49,5 @@ public class Favourite extends Model<Favourite> {
     protected Serializable pkVal() {
         return this.id;
     }
-    }
+}
 

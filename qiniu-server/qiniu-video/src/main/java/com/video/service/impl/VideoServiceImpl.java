@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.common.model.ResponseResult;
 import com.qiniu.common.QiniuException;
@@ -30,6 +31,7 @@ public class VideoServiceImpl extends ServiceImpl<VideoDao, Video> implements Vi
     @Autowired
     IQiniuService qiniuService;
 
+    @Autowired
     VideoDao videoDao;
 
     @Override
@@ -90,6 +92,7 @@ public class VideoServiceImpl extends ServiceImpl<VideoDao, Video> implements Vi
         }
         return new ResponseResult(HttpStatus.OK.value(), "更新成功");
     }
+
     @Override
     public ResponseResult videoUpdateFavouriteInfo(Long id, Long favouriteNum) {
         LambdaUpdateWrapper<Video> wrapper = new LambdaUpdateWrapper<>();
@@ -102,6 +105,42 @@ public class VideoServiceImpl extends ServiceImpl<VideoDao, Video> implements Vi
         }
         return new ResponseResult(HttpStatus.OK.value(), "更新成功");
     }
+    @Override
+    public ResponseResult getVideoLikeNum(Long id) {
+        Long likeNum;
+        try {
+            Video videoTmp = videoDao.selectById(id);
+            likeNum = videoTmp.getLikeNum();
+        } catch (Exception e) {
+            return new ResponseResult(HttpStatus.FORBIDDEN.value(), "获取失败");
+        }
+        return new ResponseResult(HttpStatus.OK.value(), "获取点赞数目成功", likeNum);
+    }
+
+    @Override
+    public ResponseResult getShareVideoNum(Long id) {
+        Long shareNum;
+        try {
+            Video videoTmp = videoDao.selectById(id);
+            shareNum = videoTmp.getShareNum();
+        } catch (Exception e) {
+            return new ResponseResult(HttpStatus.FORBIDDEN.value(), "获取失败");
+        }
+        return new ResponseResult(HttpStatus.OK.value(), "获取分享数目成功", shareNum);
+    }
+
+    @Override
+    public ResponseResult getFavouriteVideoNum(Long id) {
+        Long favouriteNum;
+        try {
+            Video videoTmp = videoDao.selectById(id);
+            favouriteNum = videoTmp.getFavouriteNum();
+        } catch (Exception e) {
+            return new ResponseResult(HttpStatus.FORBIDDEN.value(), "获取失败");
+        }
+        return new ResponseResult(HttpStatus.OK.value(), "获取收藏数目成功", favouriteNum);
+    }
+
     @Override
     public ResponseResult videoUpdateShareInfo(Long id, Long shareNum) {
         LambdaUpdateWrapper<Video> wrapper = new LambdaUpdateWrapper<>();
