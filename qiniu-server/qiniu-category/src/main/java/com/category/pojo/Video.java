@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName(value = "Video")
+@TableName(value = "video")
 public class Video {
     private static final long serialVersionUID = 1L;
     @TableId
