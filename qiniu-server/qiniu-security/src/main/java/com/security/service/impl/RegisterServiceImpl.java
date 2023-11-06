@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
+
 @Service
 public class RegisterServiceImpl implements RegisterService {
     @Autowired
@@ -21,9 +23,13 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Override
     public ResponseResult register(User user, Long roleId) {
-        // 密码经前端加密后再加密后进入数据库
+        // 进行Base64解密
+        String password = user.getPassword();
+        byte[] decode = Base64.getDecoder().decode(password);
+        password = new String(decode);
+        // 密码经解密后再加密后进入数据库
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(password));
         try {
             userMapper.insert(user);
             // 注册权限
