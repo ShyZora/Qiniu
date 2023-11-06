@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+
 @Data
 @NoArgsConstructor
 public class LoginUser implements UserDetails {
@@ -15,7 +16,7 @@ public class LoginUser implements UserDetails {
 //    private List<GrantedAuthority> authorities;
 
 
-    public LoginUser(User user,List<String> permissions) {
+    public LoginUser(User user, List<String> permissions) {
         this.user = user;
 //        this.permissions = permissions;
     }
@@ -29,10 +30,6 @@ public class LoginUser implements UserDetails {
     public void setUser(User user) {
         this.user = user;
     }
-
-
-
-
 
 
     @Override

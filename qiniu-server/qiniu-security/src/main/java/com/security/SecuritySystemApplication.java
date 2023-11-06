@@ -8,6 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan("com.security.dao")
 public class SecuritySystemApplication {
     public static void main(String[] args){
-        SpringApplication.run(SecuritySystemApplication.class,args);
+        SpringApplication.run(SecuritySystemApplication.class, args);
     }
 }

@@ -46,8 +46,8 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         // 从内存中拿到 authenticate
         String userKey = "login:" + userId;
         JSON json = (JSON) JSON.toJSON(redisCache.getCacheObject(userKey));
-        System.out.println(json+"json");
-        LoginUser loginUser = JSON.toJavaObject(json,LoginUser.class);
+        System.out.println(json + "json");
+        LoginUser loginUser = JSON.toJavaObject(json, LoginUser.class);
         System.out.println(loginUser.toString());
         if(Objects.isNull(loginUser)) {
             throw new RuntimeException("用户未登录");

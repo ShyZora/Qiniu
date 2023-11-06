@@ -18,8 +18,6 @@ import java.util.Objects;
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserMapper userMapper;
-    @Autowired
-    private MenuMapper menuMapper;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper();
@@ -29,9 +27,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new RuntimeException("用户名或者密码错误");
         }
         // 查询用户权限信息，添加到LoginUser
-       // List<String> menuKeyList = menuMapper.selectMenuKeyById(user.getId());
+        // List<String> menuKeyList = menuMapper.selectMenuKeyById(user.getId());
         // 封装成LoginUser返回
         System.out.println("loadUsername");
-        return new LoginUser(user,null);
+        return new LoginUser(user, null);
     }
 }

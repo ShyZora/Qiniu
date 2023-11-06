@@ -38,7 +38,7 @@ public class LoginServiceImpl implements LoginService {
         String userId = loginUser.getUser().getId().toString();
         String jwt = JwtUtil.createJWT(userId);
         // 将生成的 authenticate 保存到本地
-        redisCache.setCacheObject("login:"+userId,loginUser);
+        redisCache.setCacheObject("login:" + userId, loginUser);
         // 将token返回给前端
         HashMap<String,String> map = new HashMap<>();
         map.put("token",jwt);

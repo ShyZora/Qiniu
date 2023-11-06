@@ -13,7 +13,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-          # 获取源码
+    # 获取源码
     steps:
       - name: 迁出代码
         # 使用action库  actions/checkout获取源码
@@ -25,7 +25,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 18.13.0
-        
+
       # 安装依赖
       - name: 安装依赖
         run: cd web/Qiniuuu && npm install
@@ -33,10 +33,10 @@ jobs:
       # 打包
       - name: 打包
         run: cd web/Qiniuuu && npm run build
-    
+
       - name: deploy file to server
         uses: zhenyuWang/Upload-File-Action@v1.0.1
-        with:  
+        with:
           username: 'root'   #ssh user name
           server: '${{ secrets.SERVER_IP }}' #引用之前创建好的secret
           port: 22

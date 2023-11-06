@@ -47,19 +47,19 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         // 从内存中拿到 authenticate
         String userKey = "login:" + userId;
         JSON json = (JSON) JSON.toJSON(redisCache.getCacheObject(userKey));
-        System.out.println(json+"json");
-        LoginUser loginUser = JSON.toJavaObject(json,LoginUser.class);
+        System.out.println(json + "json");
+        LoginUser loginUser = JSON.toJavaObject(json, LoginUser.class);
         System.out.println(loginUser);
         System.out.println(loginUser.toString());
-        if(Objects.isNull(loginUser)) {
+        if (Objects.isNull(loginUser)) {
             throw new RuntimeException("用户未登录");
         }
         // 存入SecurityContextHolder
         // 获取权限信息封装到Authentication中
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                new UsernamePasswordAuthenticationToken(loginUser,null,loginUser.getAuthorities());
+                new UsernamePasswordAuthenticationToken(loginUser, null, loginUser.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
         // 放行
-        filterChain.doFilter(request,response);
+        filterChain.doFilter(request, response);
     }
 }
