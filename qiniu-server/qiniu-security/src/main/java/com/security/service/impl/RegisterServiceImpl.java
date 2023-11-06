@@ -1,8 +1,5 @@
 package com.security.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.segments.MergeSegments;
 import com.common.model.ResponseResult;
 import com.security.dao.UserMapper;
 import com.security.dao.UserRoleMapper;
@@ -11,7 +8,7 @@ import com.security.pojo.UserRole;
 import com.security.service.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,6 +21,9 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Override
     public ResponseResult register(User user, Long roleId) {
+        // 密码经前端加密后再加密后进入数据库
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         try {
             userMapper.insert(user);
             // 注册权限
