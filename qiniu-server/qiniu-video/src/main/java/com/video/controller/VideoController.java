@@ -36,7 +36,7 @@ public class VideoController {
         //String result = qiniuService.uploadFile(new File("C:\\Users\\world\\Pictures\\1688129525236.jpg"), "video\\688129525236.jpg");
         System.out.println(CurrentUser.getUserId());
     }
-    @GetMapping("upload")
+    @PostMapping("upload")
     public ResponseResult uploadToken(){
         return qiniuService.token();
     }
