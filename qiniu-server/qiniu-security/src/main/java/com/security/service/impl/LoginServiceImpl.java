@@ -1,6 +1,8 @@
 package com.security.service.impl;
 
 import com.common.model.ResponseResult;
+import com.security.dao.UserRoleMapper;
+import com.security.pojo.UserRole;
 import com.security.utils.JwtUtil;
 import com.security.pojo.LoginUser;
 import com.security.pojo.User;
@@ -21,6 +23,7 @@ import java.util.Objects;
 public class LoginServiceImpl implements LoginService {
     @Autowired
     private AuthenticationManager authenticationManager;
+
     @Autowired
     private RedisCache redisCache;
 
@@ -39,6 +42,7 @@ public class LoginServiceImpl implements LoginService {
         String jwt = JwtUtil.createJWT(userId);
         // 将生成的 authenticate 保存到本地
         redisCache.setCacheObject("login:" + userId, loginUser);
+
         // 将token返回给前端
         HashMap<String,String> map = new HashMap<>();
         map.put("token",jwt);
