@@ -1,6 +1,7 @@
 package com.category.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.category.dao.CategoryMapper;
 import com.category.dao.VideoMapper;
 import com.category.pojo.Category;
@@ -39,8 +40,8 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     @Override
     public ResponseResult getCategoryTagList(Integer id) {
-        LambdaQueryWrapper<Video> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Video::getCategoryId, id);
+        QueryWrapper wrapper = new QueryWrapper<>();
+        wrapper.eq("category_id",id);
         List<Video> categoryList = videoMapper.selectList(wrapper);
         if(Objects.isNull(categoryList)){
             return new ResponseResult(HttpStatus.FORBIDDEN.value(), "获取失败，请检查传入的ID值是否正确");
