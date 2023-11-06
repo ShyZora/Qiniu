@@ -1,5 +1,7 @@
 package com.video.model.dto;
 
+import java.util.Date;
+
 /**
  * @program: Qiniu
  * @description: 发布视频
@@ -8,9 +10,82 @@ package com.video.model.dto;
  **/
 
 public class PublishVideoDto {
-    Long userId;
-    String title;
-    String url;
+    private String videoUrl;
+    private String coverUrl;
+    private Date publishTime;
+
+    private String title;
+    private Long shareNum;
+    private Long categoryId;
+    private Long goodNum;
+    private Long favouriteNum;
+
+    private Long userId;
+    private Long id;
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
+
+    public String getCoverUrl() {
+        return coverUrl;
+    }
+
+    public void setCoverUrl(String coverUrl) {
+        this.coverUrl = coverUrl;
+    }
+
+    public Date getPublishTime() {
+        return publishTime;
+    }
+
+    public void setPublishTime(Date publishTime) {
+        this.publishTime = publishTime;
+    }
+
+    public Long getShareNum() {
+        return shareNum;
+    }
+
+    public void setShareNum(Long shareNum) {
+        this.shareNum = shareNum;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public Long getGoodNum() {
+        return goodNum;
+    }
+
+    public void setGoodNum(Long goodNum) {
+        this.goodNum = goodNum;
+    }
+
+    public Long getFavouriteNum() {
+        return favouriteNum;
+    }
+
+    public void setFavouriteNum(Long favouriteNum) {
+        this.favouriteNum = favouriteNum;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getUserId() {
         return userId;
@@ -28,11 +103,4 @@ public class PublishVideoDto {
         this.title = title;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
 }

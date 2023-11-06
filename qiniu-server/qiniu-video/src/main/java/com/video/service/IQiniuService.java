@@ -33,7 +33,7 @@ public interface IQiniuService {
      * @param key:
      * @return: java.lang.String
      */
-    String delete(String key) throws QiniuException;
+    Integer delete(String key) throws QiniuException;
 
     ResponseResult token();
 

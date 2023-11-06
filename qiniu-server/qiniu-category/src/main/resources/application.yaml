@@ -1,0 +1,12 @@
+server:
+  port: 12008
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/qiniu
+    username: root
+    password: admin
+    driver-class-name: com.mysql.cj.jdbc.Driver
+mybatis-plus:
+  #配置sql打印日志
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

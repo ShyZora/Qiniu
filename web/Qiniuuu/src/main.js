@@ -10,6 +10,10 @@ Vue.use(ElementUI)
 import VueCookies from 'vue-cookies'
 Vue.use(VueCookies)
 Vue.config.productionTip = false
+import videojs from "video.js";
+import "video.js/dist/video-js.css";
+Vue.prototype.$video = videojs;
+
 new Vue({
   router,
   store,
