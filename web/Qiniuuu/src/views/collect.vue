@@ -92,7 +92,7 @@ export default {
         },
         dataDelivery(value) {
             this.index = value
-            console.log(this.index)
+           
         }
     },
     mounted() {

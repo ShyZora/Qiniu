@@ -2,21 +2,23 @@
     <div class='aside'>
         <div>
             <ul>
-                <li>
-                    <div style="margin-left: -5px;">
-                        <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
-                    </div>
-                </li>
-                <li> <img src="../assets/img/heart.png" width="30px" v-show="!heart" @click="heart = true" /><img
-                        src="../assets/img/hearted.png" width="35px" height="30px" v-show="heart" @click="heart = false" />
-                </li>
-                <li @click="drawer = true"><img src="../assets/img/commet.png" width="30px" />
 
+                <li> <img src="../assets/img/heart.png" width="30px" v-show="!heart" @click="heart = true" />
+                    <img src="../assets/img/hearted.png" width="35px" height="30px" v-show="heart" @click="heart = false" />
+                    <p class="urltext1">{{ urlarr.likeNum }}</p>
+                </li>
+                <li @click="drawer = true">
+                    <img src="../assets/img/commet.png" width="30px" />
+                    <!-- <p class="urltext">{{ urlarr.comment.length }}</p> -->
                 </li>
 
-                <li><img src="../assets/img/collect.png" width="30px" v-show="!collect" @click="collect = true" /><img
-                        src="../assets/img/collected.png" width="30px" v-show="collect" @click="collect = false" /></li>
-                <li><img src="../assets/img/share.png" width="30px" /></li>
+                <li><img src="../assets/img/collect.png" width="30px" v-show="!collected" @click="collect(true)" />
+                    <img src="../assets/img/collected.png" width="30px" v-show="collected" @click="collect(false)" />
+                    <p class="urltext">{{ urlarr.favouriteNum }}</p>
+                </li>
+                <li><img src="../assets/img/share.png" width="30px" @click="copy" />
+                    <p class="urltext">{{ urlarr.shareNum }}</p>
+                </li>
             </ul>
 
         </div>
@@ -33,14 +35,14 @@
 
             </el-row>
             <div style="padding: 20px;height: 70%;">
-                <el-row :gutter="20"  v-for="item in urlarr.comment" style="padding: 10px;">
+                <!-- <el-row :gutter="20" v-for="item in urlarr.comment" style="padding: 10px;">
                     <el-col :span="16">
                         <p class="user">@{{ item.commentUser }}</p>
                         <p class="text">{{ item.commentText }}</p>
                         <p class="time">{{ item.commentTime }}</p>
                     </el-col>
-                    
-                </el-row>
+
+                </el-row> -->
             </div>
             <el-row :gutter="10">
                 <el-col :span="19">
@@ -56,28 +58,57 @@
 </template>
 
 <script>
-
+import Cookies from "vue-cookies"
 export default {
     name: 'commonAside',
     props: ["urlarr"],
     data() {
         return {
             heart: false,
-            collect: false,
+            collected: false,
             drawer: false,
             input: '',
-
+            token: '',
         }
 
     },
     methods: {
+        copy() {
+            this.$copyText(this.urlarr.url).then(
+                e => {
+                    this.$message({
+                        message: '复制视频链接成功，快去和朋友们分享叭~',
+                        type: 'success'
+                    });
+                },
+            )
 
+        },
+        collect(va) {
+            if (va) {
+                this.collected = true
+
+            } else {
+                this.collected = false
+            }
+        }
     },
-    mounted(){
-        console.log(this.urlarr,'url')
+    mounted() {
+        this.$nextTick(function () {
+            let token = Cookies.get('token')
+            console.log(token, 'cook')
+        })
+
     },
     computed: {
 
+    },
+    watch: {
+        token: {
+            handler() {
+
+            }
+        }
     }
 }
 </script>
@@ -103,6 +134,10 @@ export default {
 
 }
 
+img {
+    cursor: pointer;
+}
+
 .drawer {
     width: 300px;
     height: 90vh;
@@ -116,17 +151,30 @@ export default {
 input {
     margin-bottom: 0px;
 }
-.user{
+
+.user {
     font-size: 11px;
     color: rgb(160, 160, 160);
 }
-.text{
+
+.text {
     font-size: 15px;
-   
+
     padding: 5px;
 }
-.time{
+
+.time {
     font-size: 12px;
     color: rgb(160, 160, 160);
+}
+
+.urltext {
+    color: aliceblue;
+    margin-left: 10px;
+}
+
+.urltext1 {
+    margin-left: 5px;
+    color: aliceblue;
 }
 </style>

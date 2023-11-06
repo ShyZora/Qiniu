@@ -39,7 +39,6 @@ qn.upImg = function(req,callback){
         const key = new Date().getTime();
         //生成上传 Token
         const token = qn.uptoken(bucket);
-        console.log(token)
         //要上传文件的本地路径
         const filePath = files.file.path;     //如果是表单的数据提交会存储在fields中，图片文件提交会存储在files中 files.file中的file指的是前端设定input的name一般设置为file
         

@@ -2,10 +2,10 @@
     <div class="homePage">
         <div class="home">
             <div width="auto" class="aside">
-                <Aside :urlarr="urlarr[index]"></Aside>
+                <Aside :urlarr="urlarr[index]"  v-if="isGetData"></Aside>
             </div>
             <div class="main">
-                <PlayerVideo :urlarr="urlarr" @dataDelivery="dataDelivery"></PlayerVideo>
+                <PlayerVideo :urlarr="urlarr" @dataDelivery="dataDelivery"  v-if="isGetData"></PlayerVideo>
             </div>
 
         </div>
@@ -21,75 +21,9 @@ export default {
     name: 'mainPage',
     data() {
         return {
-            urlarr:
-                [
-                    {
-                        url: 'http://s35y978n4.bkt.clouddn.com/test1.mp41698928518604',
-                        upuser: '用户12138',
-                        upTime: '2023-11-27',
-                        text: '愿意沉溺在世界里',
-                        tag: ['生活', '时尚'],
-                        collect: Boolean,
-                        likeed: Boolean,
-                        comment: [
-                            {
-                                commentUser: '用户233',
-                                commentText: '真好玩',
-                                commentTime: '2023-11-03',
-                            },
-                            {
-                                commentUser: '用户133',
-                                commentText: '很beautiful',
-                                commentTime: '2023-11-04',
-                            }
-                        ],
-
-                    },
-                    {
-                        url: 'http://s35y978n4.bkt.clouddn.com/test2.mp41698930622104',
-                        upuser: '用户12138',
-                        upTime: '2023-11-27',
-                        text: '愿意沉溺在世界里',
-                        tag: ['生活', '时尚'],
-                        collect: Boolean,
-                        likeed: Boolean,
-                        comment: [
-                            {
-                                commentUser: 'dier用户233',
-                                commentText: 'dier真好玩',
-                                commentTime: '2023-11-03',
-                            },
-                            {
-                                commentUser: 'dier用户133',
-                                commentText: 'dier很beautiful',
-                                commentTime: 'dier2023-11-04',
-                            }
-                        ],
-
-                    },
-                    // 'http://s35y978n4.bkt.clouddn.com/test1.mp41698928518604',
-                    // ' http://s35y978n4.bkt.clouddn.com/test1.mp41698928580785',
-                    // 'http://s35y978n4.bkt.clouddn.com/test1.mp41698930474229',
-                    // 'http://s35y978n4.bkt.clouddn.com/test2.mp4',
-                    // 'http://s35y978n4.bkt.clouddn.com/test2.mp41698929826131',
-                    // 'http://s35y978n4.bkt.clouddn.com/test2.mp41698929875514',
-                    // 'http://s35y978n4.bkt.clouddn.com/test2.mp41698930622104',
-                    // 'http://s35y978n4.bkt.clouddn.com/test3.mp41698929979985',
-                    // 'http://s35y978n4.bkt.clouddn.com/testbig.mp41698928867912',
-                    // 'http://s35y978n4.bkt.clouddn.com/testbig.mp41698930247891',
-                    // 'http://s35y978n4.bkt.clouddn.com/testbig.mp41698930336898',
-                    // 'http://s35y978n4.bkt.clouddn.com/testbig.mp41698930536997',
-                    // 'http://s35y978n4.bkt.clouddn.com/testbig.mp41698930629850',
-                    // 'http://s35y978n4.bkt.clouddn.com/testbig.mp41698930665690',
-                    // 'http://s35y978n4.bkt.clouddn.com/testbig.mp41698930695096',
-                    // 'http://s35y978n4.bkt.clouddn.com/testbig.mp41698930791675',
-                    // ' http://s35y978n4.bkt.clouddn.com/testbig.mp41698930853301',
-                    // 'http://s35y978n4.bkt.clouddn.com/testbig.mp41698930960447',
-                    // 'http://s35y978n4.bkt.clouddn.com/testbig.mp41698931002307'
-
-                    //接收视频储存列表
-                ],
-            index: 0
+            urlarr: [],
+            index: 0,
+            isGetData:false
         }
     },
     components: {
@@ -98,22 +32,25 @@ export default {
     },
     methods: {
         getVideo() {
-            // axios({
-            //     method: 'get',
-            //     url: 'video/feed',
-            //     headers: {
-            //         'User-Agent': 'Apifox/1.0.0 (https://apifox.com)'
-            //     }
-            // }).then(function (response) {
-            //     console.log(response.data);
-            // })
-            //     .catch(function (error) {
-            //         console.log(error);
-            //     });
+            let that=this
+            axios({
+                method: 'get',
+                url: '/video/video/feed?userId=user',
+
+            }).then(function (response) {
+               
+                that.urlarr=response.data.data
+                console.log(that.urlarr,'that')
+                that.isGetData = true
+            })
+                .catch(function (error) {
+                    console.log(error);
+                });
+
         },
         dataDelivery(value) {
             this.index = value
-            console.log(this.index)
+            
         }
     },
     mounted() {

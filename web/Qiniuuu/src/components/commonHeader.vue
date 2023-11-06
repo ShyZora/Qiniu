@@ -9,10 +9,10 @@
             <div class="right">
                 <el-row :gutter="10" style="width: 200px;">
                     <el-col :span="10">
-                        <upVideo />
+                        <upVideo :token="token"></upVideo>
                     </el-col>
                     <el-col :span="14">
-                        <login></login>
+                        <login @dataDelivery="dataDelivery"></login>
                     </el-col>
                 </el-row>
             </div>
@@ -33,8 +33,7 @@ export default {
         return {
             input: "",
             dialogVisible: false,
-            username: '',
-            password: ''
+            token:'',
         }
     },
     components: {
@@ -45,7 +44,10 @@ export default {
         handleClose(done) {
             done()
         },
-        login(){}
+        dataDelivery(value) {
+            this.token = value
+            
+        }
     }
     // handleCommand(command){
     //     if(command=='a'){

@@ -4,10 +4,11 @@
 
         </div>
         <div class="info">
-            <p>@{{ urlarr[index].upuser }}<span style="font-size: 15px;margin-left: 20px; color: grey;">.{{
-                urlarr[index].upTime }}</span></p>
-            <p>{{ urlarr[index].text }}<span v-for="item in urlarr[index].tag">#<span @click="skipTag(item)"
-                        style="color: rgb(230, 230, 137);cursor: pointer;">{{ item }}</span></span></p>
+            <p>@{{ urlarr[index].userId }}<span style="font-size: 15px;margin-left: 20px; color: grey;">.{{
+                urlarr[index].createTime }}</span></p>
+            <p>{{ urlarr[index].title }}
+                #<span style="color: rgb(230, 230, 137);cursor: pointer;">{{ tag }}</span>
+            </p>
             <p></p>
         </div>
     </div>
@@ -17,6 +18,7 @@ import Player from "xgplayer";
 import hlsjsPlayer from 'xgplayer-hls.js';
 import 'xgplayer';
 import 'xgplayer/dist/index.min.css';
+
 export default {
     name: 'commonAside',
     props: ["urlarr"],
@@ -81,6 +83,7 @@ export default {
             //         //接收视频储存列表
             //     ],
             index: 0,
+            tag: '',
 
         }
 
@@ -169,21 +172,21 @@ export default {
             if (event.keyCode === 38) {
                 if (this.index != 0) {
                     this.index -= 1
-                    this.init(this.urlarr[this.index].url)
+                    this.init(this.urlarr[this.index].videoUrl)
                     this.$emit('dataDelivery', this.index)
                 } else {
                     this.index = this.urlarr.length - 1
-                    this.init(this.urlarr[this.urlarr.length - 1].url)
+                    this.init(this.urlarr[this.urlarr.length - 1].videoUrl)
                     this.$emit('dataDelivery', this.index)
                 }
             } else if (event.keyCode === 40) {
                 if (this.index != this.urlarr.length - 1) {
                     this.index += 1
-                    this.init(this.urlarr[this.index].url)
+                    this.init(this.urlarr[this.index].videoUrl)
                     this.$emit('dataDelivery', this.index)
                 } else {
                     this.index = 0
-                    this.init(this.urlarr[0].url)
+                    this.init(this.urlarr[0].videoUrl)
                     this.$emit('dataDelivery', this.index)
                     this.$message({
                         showClose: true,
@@ -196,13 +199,74 @@ export default {
         },
     },
     mounted() {
-        this.init(this.urlarr[this.index].url)
+        console.log(this.urlarr, 'this')
+        this.init(this.urlarr[this.index].videoUrl)
+        switch (this.urlarr[this.index].categoryId) {
+            case 1:
+                this.tag = '游戏'
+                break;
+            case 2:
+                this.tag = '体育'
+                break;
+            case 3:
+                this.tag = '时尚'
+                break;
+            case 4:
+                this.tag = '音乐'
+                break;
+            case 5:
+                this.tag = '娱乐'
+                break;
+            case 6:
+                this.tag = '二次元'
+                break;
+            case 7:
+                this.tag = '知识'
+                break;
+            case 8:
+                this.tag = '美食'
+                break;
+        }
         document.addEventListener("keyup", this.handleKeyUp);
+
     },
     beforeDestroy() {
         // 在组件销毁前移除事件监听器以防止内存泄漏
         document.removeEventListener("keyup", this.handleKeyUp);
     },
+    watch: {
+        index: {
+            handler() {
+                switch (this.urlarr[this.index].categoryId) {
+                    case 1:
+                        this.tag = '游戏'
+                        break;
+                    case 2:
+                        this.tag = '体育'
+                        break;
+                    case 3:
+                        this.tag = '时尚'
+                        break;
+                    case 4:
+                        this.tag = '音乐'
+                        break;
+                    case 5:
+                        this.tag = '娱乐'
+                        break;
+                    case 6:
+                        this.tag = '二次元'
+                        break;
+                    case 7:
+                        this.tag = '知识'
+                        break;
+                    case 8:
+                        this.tag = '美食'
+                        break;
+                }
+            }
+        }
+    }
+
 }
 
 

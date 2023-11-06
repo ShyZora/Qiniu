@@ -11,7 +11,7 @@
       </el-col>
     </el-row>
     <el-row v-show="!bigVideo">
-      <el-tabs type="border-card" style="height: 61vh;">
+      <el-tabs type="border-card" style="height: 61vh;overflow: auto;">
         <el-tab-pane>
           <span slot="label"><i class="el-icon-user-solid"></i> 个人作品({{ user.Video.length }})</span>
           <div>
@@ -35,15 +35,15 @@
       </el-tabs>
     </el-row>
     <div class="homePage" v-show="bigVideo">
-        <div class="home">
+        <!-- <div class="home">
             <div width="auto" class="aside">
-                <Aside :urlarr="urlarr[index]"></Aside>
+                <Aside ></Aside>
             </div>
             <div class="main">
-                <PlayerVideo :urlarr="urlarr" @dataDelivery="dataDelivery"></PlayerVideo>
+                <PlayerVideo ></PlayerVideo>
             </div>
 
-        </div>
+        </div> -->
 
     </div>
   </div>
@@ -104,6 +104,74 @@ export default {
           }
         ],
         like: [
+          {
+            url: '',
+            upuser: '',
+            upTime: '',
+            text: '',
+            tag: [],
+            likeed: true,
+            collect: Boolean,
+            comment: [
+              {
+                commentUser: '',
+                commentText: '',
+                commentTime: '',
+              }
+            ],
+
+          },
+          {
+            url: '',
+            upuser: '',
+            upTime: '',
+            text: '',
+            tag: [],
+            likeed: true,
+            collect: Boolean,
+            comment: [
+              {
+                commentUser: '',
+                commentText: '',
+                commentTime: '',
+              }
+            ],
+
+          },
+          {
+            url: '',
+            upuser: '',
+            upTime: '',
+            text: '',
+            tag: [],
+            likeed: true,
+            collect: Boolean,
+            comment: [
+              {
+                commentUser: '',
+                commentText: '',
+                commentTime: '',
+              }
+            ],
+
+          },
+          {
+            url: '',
+            upuser: '',
+            upTime: '',
+            text: '',
+            tag: [],
+            likeed: true,
+            collect: Boolean,
+            comment: [
+              {
+                commentUser: '',
+                commentText: '',
+                commentTime: '',
+              }
+            ],
+
+          },
           {
             url: '',
             upuser: '',
