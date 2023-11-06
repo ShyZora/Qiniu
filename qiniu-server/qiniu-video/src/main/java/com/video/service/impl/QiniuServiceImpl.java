@@ -8,6 +8,7 @@ import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
 import com.qiniu.util.StringMap;
 import com.video.model.dto.PublishVideoDto;
+import com.video.model.dto.UploadTokenDto;
 import com.video.model.po.Video;
 import com.video.service.IQiniuService;
 import com.video.service.VideoService;
@@ -38,7 +39,8 @@ public class QiniuServiceImpl implements IQiniuService, InitializingBean {
 
     @Value("${qiniu.bucket}")
     private String bucket;
-
+    @Value("${qiniu.baseUrl}")
+    private String baseUrl;
     @Value("${qiniu.domain}")
     private String domain;
 
@@ -89,7 +91,8 @@ public class QiniuServiceImpl implements IQiniuService, InitializingBean {
     @Override
     public ResponseResult token() {
         String upToken = auth.uploadToken(bucket);
-        return ResponseResult.okResult(upToken);
+        UploadTokenDto uploadTokenDto = new UploadTokenDto(upToken,baseUrl);
+        return ResponseResult.okResult(uploadTokenDto);
     }
 
     @Override
