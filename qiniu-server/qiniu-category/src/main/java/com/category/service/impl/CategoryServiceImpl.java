@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -39,11 +40,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public ResponseResult getCategoryTagList(Integer id) {
         LambdaQueryWrapper<Video> wrapper = new LambdaQueryWrapper<>();
-        List<Video> categoryList;
-        try {
-            wrapper.eq(Video::getCategoryId, id);
-            categoryList = videoMapper.selectList(wrapper);
-        } catch (Exception e) {
+        wrapper.eq(Video::getCategoryId, id);
+        List<Video> categoryList = videoMapper.selectList(wrapper);
+        if(Objects.isNull(categoryList)){
             return new ResponseResult(HttpStatus.FORBIDDEN.value(), "获取失败，请检查传入的ID值是否正确");
         }
         return new ResponseResult(HttpStatus.OK.value(), "获取成功", categoryList);
