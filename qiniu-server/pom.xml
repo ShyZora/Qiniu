@@ -12,6 +12,7 @@
         <module>qiniu-video</module>
         <module>qiniu-security</module>
         <module>qiniu-common</module>
+        <module>qiniu-category</module>
     </modules>
     <properties>
         <java.version>11</java.version>

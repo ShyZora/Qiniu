@@ -8,16 +8,19 @@ import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
 import com.qiniu.util.StringMap;
 import com.video.model.dto.PublishVideoDto;
+import com.video.model.dto.UploadTokenDto;
 import com.video.model.po.Video;
 import com.video.service.IQiniuService;
 import com.video.service.VideoService;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.InputStream;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Service
@@ -36,7 +39,8 @@ public class QiniuServiceImpl implements IQiniuService, InitializingBean {
 
     @Value("${qiniu.bucket}")
     private String bucket;
-
+    @Value("${qiniu.baseUrl}")
+    private String baseUrl;
     @Value("${qiniu.domain}")
     private String domain;
 
@@ -75,19 +79,20 @@ public class QiniuServiceImpl implements IQiniuService, InitializingBean {
 
 
     @Override
-    public String delete(String key) throws QiniuException {
+    public Integer delete(String key) throws QiniuException {
         Response response = bucketManager.delete(this.bucket, key);
         int retry = 0;
         while (response.needRetry() && retry++ < 3) {
             response = bucketManager.delete(bucket, key);
         }
-        return response.statusCode == 200 ? "删除成功!" : "删除失败!";
+        return response.statusCode;
     }
 
     @Override
     public ResponseResult token() {
         String upToken = auth.uploadToken(bucket);
-        return ResponseResult.okResult(upToken);
+        UploadTokenDto uploadTokenDto = new UploadTokenDto(upToken,baseUrl);
+        return ResponseResult.okResult(uploadTokenDto);
     }
 
     @Override
@@ -95,7 +100,7 @@ public class QiniuServiceImpl implements IQiniuService, InitializingBean {
         Video video = new Video();
         video.setTitle(publishVideoDto.getTitle());
         video.setUserId(publishVideoDto.getUserId());
-        video.setPublishTime(new Date());
+        video.setUpdateTime(LocalDateTime.now());
         video.setCoverUrl("null");
         videoService.save(video);
         return ResponseResult.okResult();
