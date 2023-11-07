@@ -26,7 +26,8 @@
 <script>
 var axios = require('axios');
 import Cookies from "vue-cookies"
-import  bus  from "./bus";
+let Base64 = require('js-base64').Base64
+import bus from "./bus";
 export default {
     data() {
         return {
@@ -48,32 +49,43 @@ export default {
                 }
 
             }).then(function (response) {
+
                 console.log(response.data.data)
                 that.token = response.data.data.token
                 that.logined = true
                 that.$emit('dataDelivery', that.token)
-                
-                Cookies.set('token', that.token, 60*60*24);
-                Cookies.set('userId', response.data.data.usrId, 60*60*24);
-                console.log(Cookies.get('token'),Cookies.get('userId'))
-                
+
+                Cookies.set('token', that.token, 60 * 60 * 24);
+                Cookies.set('userId', response.data.data.usrId, 60 * 60 * 24);
+                console.log(Cookies.get('token'), Cookies.get('userId'))
+                that.$message({
+                    message: '登录成功，开始你的奇幻之旅吧~~',
+                    type: 'success'
+                });
+
             })
                 .catch(function (error) {
                     console.log(error);
                 });
         },
         enroll() {
-            
+            let that = this
             axios({
                 method: 'post',
                 url: 'login/user/register',
                 data: {
-                    nickName: this.username,
-                    password: this.password
+                    user: {
+                        nickName: that.username,
+                        password: Base64.encode(that.password)
+                    },
+                    roleId: 2
                 }
 
             }).then(function (response) {
-                console.log(response.data);
+                that.$message({
+                    message: '注册成功，快使用新账号登录吧~',
+                    type: 'success'
+                });
             })
                 .catch(function (error) {
                     console.log(error);
@@ -81,7 +93,7 @@ export default {
         }
     },
     mounted() {
-        if(Cookies.get('token')){
+        if (Cookies.get('token')) {
             this.logined = true
         }
     }
