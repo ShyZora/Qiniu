@@ -14,6 +14,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import reactor.util.function.Tuple4;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -46,7 +47,8 @@ public class LoginServiceImpl implements LoginService {
         // 将token返回给前端
         HashMap<String,String> map = new HashMap<>();
         map.put("token",jwt);
-        return new ResponseResult(200,"登录成功",map);
+        map.put("usrId",userId);
+        return new ResponseResult(200,"登录成功", map);
     }
 
     @Override
