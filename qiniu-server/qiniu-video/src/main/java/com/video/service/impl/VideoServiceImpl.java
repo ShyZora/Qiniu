@@ -50,7 +50,9 @@ public class VideoServiceImpl extends ServiceImpl<VideoDao, Video> implements Vi
         QueryWrapper<Video> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().orderByAsc(Video::getUpdateTime);
         List<Long> recommend = videoOperationService.recommend(CurrentUser.getUserId().intValue());
-        videoDao.selectBatchIds(recommend).forEach( entity -> videos.add(entity));
+        if(recommend.size()!=0){
+            videoDao.selectBatchIds(recommend).forEach( entity ->{ videos.add(entity);});
+        }
         while(videos.size()<10){
             list(queryWrapper).forEach(entity -> videos.add(entity));
         }
