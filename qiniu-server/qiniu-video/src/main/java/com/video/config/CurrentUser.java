@@ -20,8 +20,13 @@ public class CurrentUser {
 
     public static Long getUserId(){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        JSON json = (JSON) JSON.toJSON(principal);
-        LoginUser loginUser = JSON.toJavaObject(json,LoginUser.class);
+        LoginUser loginUser;
+        try {
+            JSON json = (JSON) JSON.toJSON(principal);
+            loginUser = JSON.toJavaObject(json, LoginUser.class);
+        }catch (ClassCastException e){
+            return 0L;
+        }
         return loginUser.getUser().getId();
     }
 }

@@ -4,14 +4,16 @@ import router from './router'
 import store from './store'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import VueClipboard from 'vue-clipboard2'
+Vue.use(VueClipboard)
 Vue.use(ElementUI)
+import VueCookies from 'vue-cookies'
+Vue.use(VueCookies)
 Vue.config.productionTip = false
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
-import axios from 'axios'
 Vue.prototype.$video = videojs;
-Vue.prototype.$http = axios
-axios.defaults.baseURL = '/video'
+
 new Vue({
   router,
   store,

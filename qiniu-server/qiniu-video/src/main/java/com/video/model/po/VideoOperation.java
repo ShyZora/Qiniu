@@ -75,5 +75,16 @@ public class VideoOperation extends Model<VideoOperation> {
     protected Serializable pkVal() {
         return this.id;
     }
+
+    @Override
+    public String toString() {
+        return "VideoOperation{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", videoId=" + videoId +
+                ", operationId=" + operationId +
+                ", value=" + value +
+                '}';
     }
+}
 

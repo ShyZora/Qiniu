@@ -13,25 +13,31 @@ import sports from '../views/classification/sports.vue'
 import music from '../views/classification/music.vue'
 import recreation from '../views/classification/recreation.vue'
 import game from '../views/classification/fashion.vue'
+import food from '../views/classification/food.vue'
+import knowledge from '../views/classification/knowledge.vue'
+import twoDim from '../views/classification/twoDim.vue'
 const routes = [
   {
     path: '/',
     name: 'home',
     component: HomeView,
-    redirect:'/home',
+    redirect: '/home',
     children: [
-      { path: 'home', component: home,name:'home' },
-      { path: 'user', component: user,name:'user' },
-      { path: 'recommend', component: recommend,name:'recommend' },
-      { path: 'collect', component: collect ,name:'collect'},
-      { path: 'fashion', component: fashion ,name:'fashion'},
-      { path: 'sports', component: sports ,name:'sports'},
-      { path: 'music', component: music ,name:'music'},
-      { path: 'recreation', component: recreation,name:'recreation'},
-      { path: 'game', component: game ,name:'game'},
-  ]
+      { path: 'home', component: home, name: 'home' },
+      { path: 'user', component: user, name: 'user' },
+      { path: 'recommend', component: recommend, name: 'recommend' },
+      { path: 'collect', component: collect, name: 'collect' },
+      { path: 'fashion', component: fashion, name: 'fashion' },
+      { path: 'sports', component: sports, name: 'sports' },
+      { path: 'music', component: music, name: 'music' },
+      { path: 'recreation', component: recreation, name: 'recreation' },
+      { path: 'game', component: game, name: 'game' },
+      { path: 'food', component: food, name: 'food' },
+      { path: 'knowledge', component: knowledge, name: 'knowledge' },
+      { path: 'twoDim', component: twoDim, name: 'twoDim' },
+    ]
   },
- 
+
 ]
 
 const router = new VueRouter({

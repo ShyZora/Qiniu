@@ -1,23 +1,86 @@
 <template>
-    <div class="login-container">
-        <form>
-            <input type="text" placeholder="请输入用户名" v-model="username" />
-            <input type="password" placeholder="请输入密码" v-model="password" />
-            <button @click.prevent="login">登录</button>
-        </form>
+    <div>
+        <div>
+            <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+                v-show="logined"></el-avatar>
+        </div>
+        <el-popover placement="right" width="200" trigger="click">
+            <div>
+                <form>
+                    <input type="text" placeholder="请输入用户名" v-model="username" />
+                    <input type="password" placeholder="请输入密码" v-model="password" />
+                    <button @click.prevent="login">登录</button>
+                    <button @click.prevent="enroll" style="margin-left: 10%;">注册</button>
+                </form>
+            </div>
+            <el-button type="danger" round size="small" style="width: 80px;height: 35px;" slot="reference"
+                v-show="!logined">
+                <i class="el-icon-user-solid"></i>
+                <span style="width: 5px;" slot="reference"></span>登录
+            </el-button>
+
+
+        </el-popover>
     </div>
 </template>
 <script>
+var axios = require('axios');
+import Cookies from "vue-cookies"
+import  bus  from "./bus";
 export default {
     data() {
         return {
             username: '',
-            password: ''
+            password: '',
+            token: '',
+            logined: false
         }
     },
     methods: {
         login() {
-            // 处理登录逻辑
+            let that = this
+            axios({
+                method: 'post',
+                url: 'login/user/login',
+                data: {
+                    nickName: this.username,
+                    password: this.password
+                }
+
+            }).then(function (response) {
+                console.log(response.data, that.token)
+                that.token = response.data.data.token
+                that.logined = true
+                that.$emit('dataDelivery', that.token)
+                console.log(that)
+                Cookies.set('token', that.token, 3600000);
+                
+            })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
+        enroll() {
+            
+            axios({
+                method: 'post',
+                url: 'login/user/register',
+                data: {
+                    nickName: this.username,
+                    password: this.password
+                }
+
+            }).then(function (response) {
+                console.log(response.data);
+            })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+    },
+    mounted() {
+        if(Cookies.get('token')){
+            this.logined = true
         }
     }
 }
@@ -29,7 +92,6 @@ export default {
     margin: 0 auto;
     border: lpx solid #ccc;
     border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 form {
@@ -49,7 +111,7 @@ input {
 }
 
 button {
-    width: 100%;
+    width: 40%;
     height: 40px;
     margin-top: 20px;
     background-color: #409eff;
@@ -58,5 +120,6 @@ button {
     color: #fff;
     font-size: 14px;
     cursor: pointer;
+    margin-left: 10px;
 }
 </style>
