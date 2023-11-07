@@ -3,6 +3,7 @@ package com.video.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.common.model.ResponseResult;
 import com.video.model.po.Favourite;
+import com.video.model.po.Like;
 
 /**
  * (Favourite)表服务接口
@@ -12,10 +13,10 @@ import com.video.model.po.Favourite;
  */
 public interface FavouriteService extends IService<Favourite> {
 
-    ResponseResult favouriteVideo(Long id);
+    ResponseResult favouriteVideo(Favourite favourite);
 
     ResponseResult unFavouriteVideo(Long id);
 
-    ResponseResult getFavouriteVideo();
+    ResponseResult getFavouriteVideo(Long id);
 }
 

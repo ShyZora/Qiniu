@@ -1,6 +1,16 @@
 <template>
     <div>
-        <div id="mse" style="width: 100%; height: 100%"></div>
+        <div id="mse" style="width: 100%; height: 100%">
+
+        </div>
+        <div class="info">
+            <p>@{{ urlarr[index].userId }}<span style="font-size: 15px;margin-left: 20px; color: grey;">.{{
+                urlarr[index].createTime }}</span></p>
+            <p>{{ urlarr[index].title }}
+                #<span style="color: rgb(230, 230, 137);cursor: pointer;">{{ tag }}</span>
+            </p>
+            <p></p>
+        </div>
     </div>
 </template>
 <script>
@@ -8,35 +18,95 @@ import Player from "xgplayer";
 import hlsjsPlayer from 'xgplayer-hls.js';
 import 'xgplayer';
 import 'xgplayer/dist/index.min.css';
+
 export default {
     name: 'commonAside',
+    props: ["urlarr"],
     data() {
         return {
-            urlarr: [
-                //接收视频储存列表
-            ],
-            index:0,
+            // urlarr:
+            //     [
+            //         {
+            //             url: 'http://s35y978n4.bkt.clouddn.com/test1.mp41698928518604',
+            //             upuser: '用户12138',
+            //             upTime: '2023-11-27',
+            //             text: '愿意沉溺在世界里',
+            //             tag: ['生活', '时尚'],
+            //             collect: Boolean,
+            //             likeed: Boolean,
+            //             comment: [
+            //                 {
+            //                     commentUser: '',
+            //                     commentText: '',
+            //                     commentTime: '',
+            //                 }
+            //             ],
+
+            //         },
+            //         {
+            //             url: 'http://s35y978n4.bkt.clouddn.com/test1.mp41698928518604',
+            //             upuser: '用户12138',
+            //             upTime: '2023-11-27',
+            //             text: '愿意沉溺在世界里',
+            //             tag: ['生活', '时尚'],
+            //             collect: Boolean,
+            //             likeed: Boolean,
+            //             comment: [
+            //                 {
+            //                     commentUser: '',
+            //                     commentText: '',
+            //                     commentTime: '',
+            //                 }
+            //             ],
+
+            //         },
+            //         // 'http://s35y978n4.bkt.clouddn.com/test1.mp41698928518604',
+            //         // ' http://s35y978n4.bkt.clouddn.com/test1.mp41698928580785',
+            //         // 'http://s35y978n4.bkt.clouddn.com/test1.mp41698930474229',
+            //         // 'http://s35y978n4.bkt.clouddn.com/test2.mp4',
+            //         // 'http://s35y978n4.bkt.clouddn.com/test2.mp41698929826131',
+            //         // 'http://s35y978n4.bkt.clouddn.com/test2.mp41698929875514',
+            //         // 'http://s35y978n4.bkt.clouddn.com/test2.mp41698930622104',
+            //         // 'http://s35y978n4.bkt.clouddn.com/test3.mp41698929979985',
+            //         // 'http://s35y978n4.bkt.clouddn.com/testbig.mp41698928867912',
+            //         // 'http://s35y978n4.bkt.clouddn.com/testbig.mp41698930247891',
+            //         // 'http://s35y978n4.bkt.clouddn.com/testbig.mp41698930336898',
+            //         // 'http://s35y978n4.bkt.clouddn.com/testbig.mp41698930536997',
+            //         // 'http://s35y978n4.bkt.clouddn.com/testbig.mp41698930629850',
+            //         // 'http://s35y978n4.bkt.clouddn.com/testbig.mp41698930665690',
+            //         // 'http://s35y978n4.bkt.clouddn.com/testbig.mp41698930695096',
+            //         // 'http://s35y978n4.bkt.clouddn.com/testbig.mp41698930791675',
+            //         // ' http://s35y978n4.bkt.clouddn.com/testbig.mp41698930853301',
+            //         // 'http://s35y978n4.bkt.clouddn.com/testbig.mp41698930960447',
+            //         // 'http://s35y978n4.bkt.clouddn.com/testbig.mp41698931002307'
+
+            //         //接收视频储存列表
+            //     ],
+            index: 0,
+            tag: '',
 
         }
 
     },
     methods: {
         init(url) {
-
             let player = new Player({
                 id: 'mse',
                 autoplay: true,
                 volume: 0.3,
                 url: url,
                 playsinline: true,
-                thumbnail: {
-                    pic_num: 44,
-                    width: 160,
-                    height: 90,
-                    col: 10,
-                    row: 10,
-                    urls: ['//lf3-static.bytednsdoc.com/obj/eden-cn/nupenuvpxnuvo/xgplayer_doc/xgplayer-demo-thumbnail.jpg'],
-                },
+                // thumbnail: {
+                //     pic_num: 44,
+                //     width: 160,
+                //     height: 90,
+                //     col: 10,
+                //     row: 10,
+                //     urls: [url],
+                // },
+                // icons: {
+                //     loadingIcon:`<div class='customclass'><img src="..assets/img/loading.jpg"/></div>`
+                // },
                 danmu: {
                     comments: [
                         {
@@ -44,7 +114,7 @@ export default {
                             id: '1',
                             start: 3000,
                             txt: '长弹幕长弹幕长弹幕长弹幕长弹幕',
-                            style: { //弹幕自定义样式
+                            style: {  //弹幕自定义样式
                                 color: '#ff9500',
                                 fontSize: '20px',
                                 border: 'solid 1px #ff9500',
@@ -68,18 +138,31 @@ export default {
                 download: true,
                 height: 630,
                 width: 1300,
-                playNext: {
-                    urlList: [
-                        'url1',
-                        'url2',
-                        'url3'
-                    ],
-                },
                 pip: true,
             });
 
         },
+        skipTag(item) {
+            let path = '/home'
+            if (item === '音乐') {
+                path = '/music'
+            } else if (item === '运动') {
+                path = '/sports'
+            }
+            else if (item === '游戏') {
+                path = '/game'
+            }
+            else if (item === '时尚') {
+                path = '/fashion'
+            }
 
+            else if (item === '娱乐') {
+                path = '/recreation'
+            }
+            if (this.$route.path !== path && !(this.$route.path === '/home' && (path === '/'))) {
+                this.$router.push(path)
+            }
+        },
 
         handleKeyUp(event) {
             // if (event.key === "ArrowUp") {
@@ -87,33 +170,120 @@ export default {
             //     console.log('up')
             // }
             if (event.keyCode === 38) {
-                if(this.index!=0){
-                    console.log(this.index,'按上键前')
-                    this.index-=1
-                    this.init(this.urlarr[this.index])
-                    console.log(this.index,'按上键后')
+                if (this.index != 0) {
+                    this.index -= 1
+                    this.init(this.urlarr[this.index].videoUrl)
+                    this.$emit('dataDelivery', this.index)
+                } else {
+                    this.index = this.urlarr.length - 1
+                    this.init(this.urlarr[this.urlarr.length - 1].videoUrl)
+                    this.$emit('dataDelivery', this.index)
                 }
             } else if (event.keyCode === 40) {
-                if(this.index!=this.urlarr.length-1){
-                    console.log(this.index,'按上键前')
-                    this.index+=1
-                    this.init(this.urlarr[this.index])
-                    console.log(this.index,'按上键后')
+                if (this.index != this.urlarr.length - 1) {
+                    this.index += 1
+                    this.init(this.urlarr[this.index].videoUrl)
+                    this.$emit('dataDelivery', this.index)
+                } else {
+                    this.index = 0
+                    this.init(this.urlarr[0].videoUrl)
+                    this.$emit('dataDelivery', this.index)
+                    this.$message({
+                        showClose: true,
+                        message: '抱歉暂无更多视频,为您从头播放',
+                        type: 'warning'
+                    });
                 }
             }
 
         },
     },
     mounted() {
-        this.init(this.urlarr[this.index])
+        console.log(this.urlarr, 'this')
+        this.init(this.urlarr[this.index].videoUrl)
+        switch (this.urlarr[this.index].categoryId) {
+            case 1:
+                this.tag = '游戏'
+                break;
+            case 2:
+                this.tag = '体育'
+                break;
+            case 3:
+                this.tag = '时尚'
+                break;
+            case 4:
+                this.tag = '音乐'
+                break;
+            case 5:
+                this.tag = '娱乐'
+                break;
+            case 6:
+                this.tag = '二次元'
+                break;
+            case 7:
+                this.tag = '知识'
+                break;
+            case 8:
+                this.tag = '美食'
+                break;
+        }
         document.addEventListener("keyup", this.handleKeyUp);
+
     },
     beforeDestroy() {
         // 在组件销毁前移除事件监听器以防止内存泄漏
         document.removeEventListener("keyup", this.handleKeyUp);
     },
+    watch: {
+        index: {
+            handler() {
+                switch (this.urlarr[this.index].categoryId) {
+                    case 1:
+                        this.tag = '游戏'
+                        break;
+                    case 2:
+                        this.tag = '体育'
+                        break;
+                    case 3:
+                        this.tag = '时尚'
+                        break;
+                    case 4:
+                        this.tag = '音乐'
+                        break;
+                    case 5:
+                        this.tag = '娱乐'
+                        break;
+                    case 6:
+                        this.tag = '二次元'
+                        break;
+                    case 7:
+                        this.tag = '知识'
+                        break;
+                    case 8:
+                        this.tag = '美食'
+                        break;
+                }
+            }
+        }
+    }
+
 }
 
 
 
 </script>
+<style scoped lang="less">
+.info {
+    width: 800px;
+    height: 60px;
+    color: aliceblue;
+    z-index: 100;
+    position: absolute;
+    top: 78%;
+    left: 200px;
+
+    p {
+        margin-top: 15px;
+    }
+}
+</style>

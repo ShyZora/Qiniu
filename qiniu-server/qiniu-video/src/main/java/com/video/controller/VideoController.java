@@ -13,8 +13,6 @@ import org.apache.mahout.cf.taste.common.TasteException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
-
 /**
  * @program: Qiniu
  * @description:
@@ -60,23 +58,10 @@ public class VideoController {
         return videoService.deleteVideo(idDto.getId());
     }
 
-    @PostMapping("favourite")
-    public ResponseResult favouriteVideo(@RequestBody IdDto idDto){
-        return favouriteService.favouriteVideo(idDto.getId());
-    }
 
     @GetMapping("user/feed")
     public ResponseResult userVideo(Long userId){
         System.out.println("用户视频controller");
         return videoService.userVideo(userId);
-    }
-
-    @PostMapping("unfavourite")
-    public ResponseResult unFavouriteVideo(@RequestBody IdDto idDto){
-        return favouriteService.unFavouriteVideo(idDto.getId());
-    }
-    @GetMapping("favourite")
-    public ResponseResult getFavouriteVideo(){
-        return favouriteService.getFavouriteVideo();
     }
 }

@@ -4,7 +4,12 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * (Favourite)表实体类
@@ -13,6 +18,9 @@ import java.io.Serializable;
  * @since 2023-11-03 16:14:51
  */
 @SuppressWarnings("serial")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @TableName("favourite")
 public class Favourite extends Model<Favourite> {
     @TableId(value="id",type = IdType.AUTO )
@@ -22,30 +30,15 @@ public class Favourite extends Model<Favourite> {
     
     private Long videoId;
 
+    private String title;
 
-    public Long getId() {
-        return id;
-    }
+    private String videoUrl;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private String coverUrl;
 
-    public Long getUserId() {
-        return userId;
-    }
+    private LocalDateTime createTime;
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Long getVideoId() {
-        return videoId;
-    }
-
-    public void setVideoId(Long videoId) {
-        this.videoId = videoId;
-    }
+    private LocalDateTime updateTime;
 
     /**
      * 获取主键值

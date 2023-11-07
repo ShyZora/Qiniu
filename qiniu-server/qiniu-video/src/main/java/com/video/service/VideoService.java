@@ -23,5 +23,11 @@ public interface VideoService extends IService<Video> {
     ResponseResult videoUpdateLikeInfo(Long id,Long likeNum);
     ResponseResult videoUpdateShareInfo(Long id, Long shareNum);
     ResponseResult videoUpdateFavouriteInfo(Long id, Long favouriteNum);
+
+    ResponseResult getFavouriteVideoNum(Long id);
+
+    ResponseResult getVideoLikeNum(Long id);
+
+    ResponseResult getShareVideoNum(Long id);
 }
 

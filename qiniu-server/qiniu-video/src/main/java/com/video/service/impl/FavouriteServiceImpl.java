@@ -1,15 +1,18 @@
 package com.video.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.common.model.ResponseResult;
 import com.video.config.CurrentUser;
 import com.video.dao.FavouriteDao;
 import com.video.model.po.Favourite;
+import com.video.model.po.Video;
 import com.video.service.FavouriteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * (Favourite)表服务实现类
@@ -21,11 +24,11 @@ import org.springframework.stereotype.Service;
 public class FavouriteServiceImpl extends ServiceImpl<FavouriteDao, Favourite> implements FavouriteService {
     @Autowired
     private FavouriteService favouriteService;
+    @Autowired
+    private FavouriteDao favouriteDao;
     @Override
-    public ResponseResult favouriteVideo(Long id) {
-        Favourite favourite = new Favourite();
-        favourite.setVideoId(id);
-        favourite.setUserId(CurrentUser.getUserId());
+    public ResponseResult favouriteVideo(Favourite favourite) {
+        save(favourite);
         return ResponseResult.okResult();
     }
 
@@ -40,8 +43,16 @@ public class FavouriteServiceImpl extends ServiceImpl<FavouriteDao, Favourite> i
     }
 
     @Override
-    public ResponseResult getFavouriteVideo() {
-        return null;
+    public ResponseResult getFavouriteVideo(Long id) {
+        LambdaQueryWrapper<Favourite> wrapper = new LambdaQueryWrapper<>();
+        List<Favourite> favouriteList;
+        try {
+            wrapper.eq(Favourite::getUserId, id);
+            favouriteList = favouriteDao.selectList(wrapper);
+        } catch (Exception e) {
+            return new ResponseResult(HttpStatus.FORBIDDEN.value(), "获取失败");
+        }
+        return new ResponseResult<>(HttpStatus.OK.value(), "获取收藏列表成功", favouriteList);
     }
 }
 
