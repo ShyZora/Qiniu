@@ -53,7 +53,7 @@ export default {
                 that.logined = true
                 that.$emit('dataDelivery', that.token)
                 console.log(that)
-                Cookies.set('token', that.token, 3600000);
+                Cookies.set('token', that.token, 60*60*24);
                 
             })
                 .catch(function (error) {

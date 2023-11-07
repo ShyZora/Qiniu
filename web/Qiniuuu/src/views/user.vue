@@ -3,7 +3,7 @@
     <el-row>
       <el-col :span="8">
         <div style="height: 30vh;">
-          <p>{{ user.userId }}</p>
+          
           <p></p>
         </div>
       </el-col>
@@ -13,19 +13,19 @@
     <el-row v-show="!bigVideo">
       <el-tabs type="border-card" style="height: 61vh;overflow: auto;">
         <el-tab-pane>
-          <span slot="label"><i class="el-icon-user-solid"></i> 个人作品({{ user.Video.length }})</span>
+          <span slot="label"><i class="el-icon-user-solid"></i> 个人作品({{ like.length }})</span>
           <div>
-            <div class="litterBox" v-for="item in user.Video">
+            <!-- <div class="litterBox" v-for="item in user.Video">
               <div class="litter" @click="playBigVideo(item)">
                 <img :src="item.coverimg"/>
               </div>
-            </div>
+            </div> -->
           </div>
         </el-tab-pane>
         <el-tab-pane>
-          <span slot="label"><i class="el-icon-lollipop"></i> 喜欢({{user.like.length}})</span>
+          <span slot="label"><i class="el-icon-lollipop"></i> 喜欢({{like.length}})</span>
           <div>
-            <div class="litterBox" v-for="item in user.like">
+            <div class="litterBox" v-for="item in like">
               <div class="litter" @click="playBigVideo(item)">
                 <img :src="item.coverimg"/>
               </div>
@@ -52,6 +52,8 @@
 <script>
 import Aside from '/src/components/aside.vue'
 import PlayerVideo from "/src/components/PlayerVideo.vue";
+import Cookies from "vue-cookies"
+var axios = require('axios');
 export default {
   name: "home",
   components: {
@@ -61,194 +63,31 @@ export default {
   data() {
     return {
       bigVideo:false,
-      user: {
-        userId: '用户123445',
-        userPassward: '',
-        Video: [
-          {
-            url: '',
-            upuser: '',
-            upTime: '',
-            text: '',
-            tag: [],
-            likeed: Boolean,
-            collect: true,
-            comment: [
-              {
-                commentUser: '',
-                commentText: '',
-                commentTime: '',
-              }
-            ],
-
-          }
-        ],
-        collect: [
-          {
-            url: '',
-            coverurl:'',
-            upuser: '',
-            upTime: '',
-            text: '',
-            tag: [],
-            likeed: Boolean,
-            collect: true,
-            comment: [
-              {
-                commentUser: '',
-                commentText: '',
-                commentTime: '',
-              }
-            ],
-
-          }
-        ],
-        like: [
-          {
-            url: '',
-            upuser: '',
-            upTime: '',
-            text: '',
-            tag: [],
-            likeed: true,
-            collect: Boolean,
-            comment: [
-              {
-                commentUser: '',
-                commentText: '',
-                commentTime: '',
-              }
-            ],
-
-          },
-          {
-            url: '',
-            upuser: '',
-            upTime: '',
-            text: '',
-            tag: [],
-            likeed: true,
-            collect: Boolean,
-            comment: [
-              {
-                commentUser: '',
-                commentText: '',
-                commentTime: '',
-              }
-            ],
-
-          },
-          {
-            url: '',
-            upuser: '',
-            upTime: '',
-            text: '',
-            tag: [],
-            likeed: true,
-            collect: Boolean,
-            comment: [
-              {
-                commentUser: '',
-                commentText: '',
-                commentTime: '',
-              }
-            ],
-
-          },
-          {
-            url: '',
-            upuser: '',
-            upTime: '',
-            text: '',
-            tag: [],
-            likeed: true,
-            collect: Boolean,
-            comment: [
-              {
-                commentUser: '',
-                commentText: '',
-                commentTime: '',
-              }
-            ],
-
-          },
-          {
-            url: '',
-            upuser: '',
-            upTime: '',
-            text: '',
-            tag: [],
-            likeed: true,
-            collect: Boolean,
-            comment: [
-              {
-                commentUser: '',
-                commentText: '',
-                commentTime: '',
-              }
-            ],
-
-          },
-          {
-            url: '',
-            upuser: '',
-            upTime: '',
-            text: '',
-            tag: [],
-            likeed: true,
-            collect: Boolean,
-            comment: [
-              {
-                commentUser: '',
-                commentText: '',
-                commentTime: '',
-              }
-            ],
-
-          },
-          {
-            url: '',
-            upuser: '',
-            upTime: '',
-            text: '',
-            tag: [],
-            likeed: true,
-            collect: Boolean,
-            comment: [
-              {
-                commentUser: '',
-                commentText: '',
-                commentTime: '',
-              }
-            ],
-
-          },
-          {
-            url: '',
-            upuser: '',
-            upTime: '',
-            text: '',
-            tag: [],
-            likeed: true,
-            collect: Boolean,
-            comment: [
-              {
-                commentUser: '',
-                commentText: '',
-                commentTime: '',
-              }
-            ],
-
-          },
-        ]
-      }
+      like:[],
     };
   },
   methods: {
     playBigVideo(){}
   },
   mounted() {
+    let token = Cookies.get('token')
+    if(token){
+      axios({
+                method: 'get',
+                url: 'video/user/likeList?id=2',
+                Headers:{
+                  token:token
+                }
 
+            }).then(function (response) {
+                console.log(response.data, that.token)
+                
+                
+            })
+                .catch(function (error) {
+                    console.log(error);
+                });
+    }
   },
 
 };
