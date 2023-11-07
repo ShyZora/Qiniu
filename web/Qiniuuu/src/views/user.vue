@@ -10,14 +10,14 @@
       <el-col :span="16">
       </el-col>
     </el-row>
-    <el-row v-show="!bigVideo">
+    <el-row v-show="!bigVideo || !bigLike">
       <el-tabs type="border-card" style="height: 61vh;overflow: auto;">
         <el-tab-pane>
           <span slot="label"><i class="el-icon-user-solid"></i> 个人作品({{ user.Video.length }})</span>
           <div>
             <div class="litterBox" v-for="item in user.Video">
-              <div class="litter" @click="playBigVideo(item)">
-                <img :src="item.coverimg" />
+              <div class="litter">
+                <littlePlay :urlarr="item" :idd="item.createTime"></littlePlay>
               </div>
             </div>
           </div>
@@ -26,26 +26,15 @@
           <span slot="label"><i class="el-icon-lollipop"></i> 喜欢({{ user.like.length }})</span>
           <div>
             <div class="litterBox" v-for="item in user.like">
-              <div class="litter" @click="playBigVideo(item)">
-                <img :src="item.coverimg" />
+              <div class="litter">
+                <littlePlay :urlarr="item"></littlePlay>
               </div>
             </div>
           </div>
         </el-tab-pane>
       </el-tabs>
     </el-row>
-    <div class="homePage" v-show="bigVideo">
-      <!-- <div class="home">
-            <div width="auto" class="aside">
-                <Aside ></Aside>
-            </div>
-            <div class="main">
-                <PlayerVideo ></PlayerVideo>
-            </div>
 
-        </div> -->
-
-    </div>
   </div>
 </template>
   
@@ -53,196 +42,24 @@
 var axios = require('axios');
 import Aside from '/src/components/aside.vue'
 import PlayerVideo from "/src/components/PlayerVideo.vue";
+import littlePlay from "/src/components/littleplay.vue";
 export default {
   name: "home",
   components: {
     Aside,
-    PlayerVideo
+    PlayerVideo,
+    littlePlay
   },
   data() {
     return {
       bigVideo: false,
+      bigLike: false,
       user: {
-        userId: '用户123445',
-        userPassward: '',
-        Video: [
-          {
-            url: '',
-            upuser: '',
-            upTime: '',
-            text: '',
-            tag: [],
-            likeed: Boolean,
-            collect: true,
-            comment: [
-              {
-                commentUser: '',
-                commentText: '',
-                commentTime: '',
-              }
-            ],
-
-          }
-        ],
-        collect: [
-          {
-            url: '',
-            coverurl: '',
-            upuser: '',
-            upTime: '',
-            text: '',
-            tag: [],
-            likeed: Boolean,
-            collect: true,
-            comment: [
-              {
-                commentUser: '',
-                commentText: '',
-                commentTime: '',
-              }
-            ],
-
-          }
-        ],
-        like: [
-          {
-            url: '',
-            upuser: '',
-            upTime: '',
-            text: '',
-            tag: [],
-            likeed: true,
-            collect: Boolean,
-            comment: [
-              {
-                commentUser: '',
-                commentText: '',
-                commentTime: '',
-              }
-            ],
-
-          },
-          {
-            url: '',
-            upuser: '',
-            upTime: '',
-            text: '',
-            tag: [],
-            likeed: true,
-            collect: Boolean,
-            comment: [
-              {
-                commentUser: '',
-                commentText: '',
-                commentTime: '',
-              }
-            ],
-
-          },
-          {
-            url: '',
-            upuser: '',
-            upTime: '',
-            text: '',
-            tag: [],
-            likeed: true,
-            collect: Boolean,
-            comment: [
-              {
-                commentUser: '',
-                commentText: '',
-                commentTime: '',
-              }
-            ],
-
-          },
-          {
-            url: '',
-            upuser: '',
-            upTime: '',
-            text: '',
-            tag: [],
-            likeed: true,
-            collect: Boolean,
-            comment: [
-              {
-                commentUser: '',
-                commentText: '',
-                commentTime: '',
-              }
-            ],
-
-          },
-          {
-            url: '',
-            upuser: '',
-            upTime: '',
-            text: '',
-            tag: [],
-            likeed: true,
-            collect: Boolean,
-            comment: [
-              {
-                commentUser: '',
-                commentText: '',
-                commentTime: '',
-              }
-            ],
-
-          },
-          {
-            url: '',
-            upuser: '',
-            upTime: '',
-            text: '',
-            tag: [],
-            likeed: true,
-            collect: Boolean,
-            comment: [
-              {
-                commentUser: '',
-                commentText: '',
-                commentTime: '',
-              }
-            ],
-
-          },
-          {
-            url: '',
-            upuser: '',
-            upTime: '',
-            text: '',
-            tag: [],
-            likeed: true,
-            collect: Boolean,
-            comment: [
-              {
-                commentUser: '',
-                commentText: '',
-                commentTime: '',
-              }
-            ],
-
-          },
-          {
-            url: '',
-            upuser: '',
-            upTime: '',
-            text: '',
-            tag: [],
-            likeed: true,
-            collect: Boolean,
-            comment: [
-              {
-                commentUser: '',
-                commentText: '',
-                commentTime: '',
-              }
-            ],
-
-          },
-        ]
-      }
+        Video: [],
+        like: []
+      },
+      isGetData: false,
+      index: 0
     };
   },
   methods: {
@@ -250,18 +67,33 @@ export default {
       let that = this
       axios({
         method: 'get',
-        url: '/video/video/user/feed?userId=2',
-        
+        url: 'video/video/user/feed?userId=' + that.$cookies.get('userId'),
+
 
       }).then(function (response) {
-        console.log(response.data)
+        that.isGetData = true
+        that.user.Video = response.data.data
 
       })
         .catch(function (error) {
           console.log(error);
         });
+      axios({
+        method: 'get',
+        url: 'video/video/user/likeList?id=' + that.$cookies.get('userId'),
+        Headers: {
+          token: that.$cookies.get('token')
+        }
+
+      }).then(function (response) {
+        that.user.like = response.data.data
+        that.isGetData = true
+      })
+        .catch(function (error) {
+          console.log(error);
+        });
     },
-    playBigVideo() { }
+    
   },
   mounted() {
     this.getPerson()
@@ -275,7 +107,7 @@ export default {
 }
 
 .litter {
-  width: 260px;
+  width: 250px;
   height: 350px;
   background-color: antiquewhite;
   float: left;

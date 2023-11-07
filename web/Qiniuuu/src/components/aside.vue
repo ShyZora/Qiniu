@@ -76,7 +76,7 @@ export default {
     },
     methods: {
         copy() {
-            this.$copyText(this.urlarr.url).then(
+            this.$copyText(this.urlarr.videoUrl).then(
                 e => {
                     this.$message({
                         message: '复制视频链接成功，快去和朋友们分享叭~',
@@ -84,29 +84,32 @@ export default {
                     });
                 },
             )
+            this.urlarr.shareNum+=1
 
         },
         collect(va) {
             let that = this
+            console.log(that.urlarr,'url')
             console.log(this.$cookies.get('token'))
             let data = {
                     id: that.urlarr.id,
                     userId: that.urlarr.userId,
-                    videoId: that.urlarr.videoId,
+                    videoId: that.urlarr.id,
                     title: that.urlarr.title,
                     videoUrl: that.urlarr.videoUrl,
                     coverUrl: that.urlarr.coverUrl,
                     createTime: that.urlarr.createTime,
                     updateTime: that.urlarr.updateTime
                 }
+                console.log(data,'data')
             if (va) {
-                this.hearted = true
-                this.urlarr.likeNum += 1
+                this.collected = true
+                this.urlarr.favouriteNum += 1
                 
                 
                 axios({
                     method: 'post',
-                    url: '/video/user/favourite',
+                    url: 'video/user/favourite',
                     headers: {
                         token: that.$cookies.get('token'),
 
@@ -120,14 +123,14 @@ export default {
                     });
                 axios({
                     method: 'post',
-                    url: '/video/user/favouriteNum',
+                    url: 'video/user/favouriteNum',
                     headers: {
                         token: that.$cookies.get('token'),
 
                     },
                     data: {
                         id: that.$cookies.get('userId'),
-                        favouriteNum: that.urlarr.likeNum
+                        favouriteNum: that.urlarr.favouriteNum
                     }
                 }).then(function (response) {
                     console.log(response.data)
@@ -136,12 +139,12 @@ export default {
                         console.log(error);
                     });
             } else {
-                this.hearted = false
-                this.urlarr.likeNum -= 1
+                this.collected = false
+                this.urlarr.favouriteNum -= 1
                 
                 axios({
                     method: 'post',
-                    url: '/video/user/unfavourite',
+                    url: 'video/user/unfavourite',
                     headers: {
                         token: that.$cookies.get('token'),
 
@@ -155,14 +158,14 @@ export default {
                     });
                 axios({
                     method: 'post',
-                    url: '/video/user/favouriteNum',
+                    url: 'video/user/favouriteNum',
                     headers: {
                         token: that.$cookies.get('token'),
 
                     },
                     data: {
                         id: that.$cookies.get('userId'),
-                        favouriteNum: that.urlarr.likeNum
+                        favouriteNum: that.urlarr.favouriteNum
                     }
                 }).then(function (response) {
                     console.log(response.data)
@@ -178,7 +181,7 @@ export default {
             let data = {
                     id: that.urlarr.id,
                     userId: that.urlarr.userId,
-                    videoId: that.urlarr.videoId,
+                    videoId: that.urlarr.id,
                     title: that.urlarr.title,
                     videoUrl: that.urlarr.videoUrl,
                     coverUrl: that.urlarr.coverUrl,
@@ -187,12 +190,12 @@ export default {
                 }
             if (va) {
                 this.hearted = true
-                this.urlarr.likeNum += 1
+                that.urlarr.likeNum += 1
                 
                 
                 axios({
                     method: 'post',
-                    url: '/video/user/like',
+                    url: 'video/user/like',
                     headers: {
                         token: that.$cookies.get('token'),
 
@@ -206,7 +209,7 @@ export default {
                     });
                 axios({
                     method: 'post',
-                    url: '/video/user/videoLikeNum',
+                    url: 'video/user/videoLikeNum',
                     headers: {
                         token: that.$cookies.get('token'),
 
@@ -227,7 +230,7 @@ export default {
                 
                 axios({
                     method: 'post',
-                    url: '/video/user/unlike',
+                    url: 'video/user/unlike',
                     headers: {
                         token: that.$cookies.get('token'),
 
@@ -241,7 +244,7 @@ export default {
                     });
                 axios({
                     method: 'post',
-                    url: '/video/user/videoLikeNum',
+                    url: 'video/user/videoLikeNum',
                     headers: {
                         token: that.$cookies.get('token'),
 
@@ -336,11 +339,11 @@ input {
 
 .urltext {
     color: aliceblue;
-    margin-left: 10px;
+    margin-left: 9px;
 }
 
 .urltext1 {
-    margin-left: 5px;
+    margin-left: 8px;
     color: aliceblue;
 }
 </style>

@@ -35,7 +35,7 @@ export default {
             let that=this
             axios({
                 method: 'get',
-                url: '/video/video/feed?id=2',
+                url: 'video/video/feed?userId='+that.$cookies.get('userId'),
 
             }).then(function (response) {
                

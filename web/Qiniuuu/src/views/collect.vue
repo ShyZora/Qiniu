@@ -37,7 +37,7 @@ export default {
             let that = this
             axios({
                 method: 'get',
-                url: '/video/user/favourite?id=2',
+                url: 'video/user/favourite?userId='+that.$cookies.get('userId'),
                 headers: {
                     token: this.$cookies.get('token'),
 
