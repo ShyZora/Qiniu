@@ -7,7 +7,9 @@ import com.video.model.dto.IdDto;
 import com.video.model.dto.PublishVideoDto;
 import com.video.service.FavouriteService;
 import com.video.service.IQiniuService;
+import com.video.service.VideoOperationService;
 import com.video.service.VideoService;
+import org.apache.mahout.cf.taste.common.TasteException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,15 +30,17 @@ public class VideoController {
     private IQiniuService qiniuService;
 
     @Autowired
+    private VideoOperationService videoOperationService;
+
+    @Autowired
     private FavouriteService favouriteService;
     @GetMapping("feed")
-    public ResponseResult Feed(){
+    public ResponseResult Feed() throws TasteException {
         return  videoService.feed();
     }
     @GetMapping("sda")
-    public void testUpload() throws QiniuException {
-        //String result = qiniuService.uploadFile(new File("C:\\Users\\world\\Pictures\\1688129525236.jpg"), "video\\688129525236.jpg");
-        System.out.println(CurrentUser.getUserId());
+    public void testUpload(Integer integer) throws TasteException {
+        videoOperationService.recommend(integer).forEach((i -> System.out.println(i)));
     }
     @PostMapping("upload")
     public ResponseResult uploadToken(){

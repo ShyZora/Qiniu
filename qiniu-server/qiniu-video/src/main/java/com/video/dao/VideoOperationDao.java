@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.video.model.po.VideoOperation;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * (VideoOperation)表数据库访问层
  *
@@ -12,6 +14,6 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface VideoOperationDao extends BaseMapper<VideoOperation> {
-
+    List<VideoOperation> getAllUserPreference();
 }
 

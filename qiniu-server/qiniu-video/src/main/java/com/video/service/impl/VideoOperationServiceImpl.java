@@ -35,38 +35,44 @@ import java.util.stream.Collectors;
  */
 @Service("videoOperationService")
 public class VideoOperationServiceImpl extends ServiceImpl<VideoOperationDao, VideoOperation> implements VideoOperationService {
-//    @Autowired
-//    private VideoOperationDao videoOperationDao;
-//    public List<Long> recommend(Integer userId) throws TasteException {
-//        List<VideoOperation> userList = videoOperationDao.getAllUserPreference();
-//        //创建数据模型
-//        DataModel dataModel = this.createDataModel(userList);
-//        //获取用户相似程度
-//        UserSimilarity similarity = new UncenteredCosineSimilarity(dataModel);
-//        //获取用户邻居
-//        UserNeighborhood userNeighborhood = new NearestNUserNeighborhood(2, similarity, dataModel);
-//        //构建推荐器
-//        Recommender recommender = new GenericUserBasedRecommender(dataModel, userNeighborhood, similarity);
-//        //推荐2个
-//        List<RecommendedItem> recommendedItems = recommender.recommend(userId, 5);
-//        List<Long> itemIds = recommendedItems.stream().map(RecommendedItem::getItemID).collect(Collectors.toList());
-//        return itemIds;
-//    }
-//    private DataModel createDataModel(List<VideoOperation> userArticleOperations) {
-//        FastByIDMap<PreferenceArray> fastByIdMap = new FastByIDMap<>();
-//        Map<Long, List<VideoOperation>> map = userArticleOperations.stream().collect(Collectors.groupingBy(VideoOperation::getUserId));
-//        Collection<List<VideoOperation>> list = map.values();
-//        for(List<VideoOperation> userPreferences : list){
-//            GenericPreference[] array = new GenericPreference[userPreferences.size()];
-//            for(int i = 0; i < userPreferences.size(); i++){
-//                VideoOperation userPreference = userPreferences.get(i);
-//                GenericPreference item = new GenericPreference(userPreference.getUserId(), userPreference.getVideoId(), userPreference.getValue());
-//                array[i] = item;
-//            }
-//            fastByIdMap.put(array[0].getUserID(), new GenericUserPreferenceArray(Arrays.asList(array)));
-//        }
-//        return new GenericDataModel(fastByIdMap);
-//    }
+    @Autowired(required = false)
+    private VideoOperationDao videoOperationDao;
+    public List<Long> recommend(Integer userId) throws TasteException {
+        List<VideoOperation> userList = videoOperationDao.getAllUserPreference();
+        for (VideoOperation i:userList){
+            System.out.println(i);
+        }
+        //创建数据模型
+        DataModel dataModel = this.createDataModel(userList);
+        //获取用户相似程度
+        UserSimilarity similarity = new UncenteredCosineSimilarity(dataModel);
+        //获取用户邻居
+        UserNeighborhood userNeighborhood = new NearestNUserNeighborhood(2, similarity, dataModel);
+        //构建推荐器
+        Recommender recommender = new GenericUserBasedRecommender(dataModel, userNeighborhood, similarity);
+        //推荐2个
+        List<RecommendedItem> recommendedItems = recommender.recommend(userId, 5);
+        List<Long> itemIds = recommendedItems.stream().map(RecommendedItem::getItemID).collect(Collectors.toList());
+        for (Long i:itemIds){
+            System.out.println(i);
+        }
+        return itemIds;
+    }
+    private DataModel createDataModel(List<VideoOperation> userArticleOperations) {
+        FastByIDMap<PreferenceArray> fastByIdMap = new FastByIDMap<>();
+        Map<Long, List<VideoOperation>> map = userArticleOperations.stream().collect(Collectors.groupingBy(VideoOperation::getUserId));
+        Collection<List<VideoOperation>> list = map.values();
+        for(List<VideoOperation> userPreferences : list){
+            GenericPreference[] array = new GenericPreference[userPreferences.size()];
+            for(int i = 0; i < userPreferences.size(); i++){
+                VideoOperation userPreference = userPreferences.get(i);
+                GenericPreference item = new GenericPreference(userPreference.getUserId(), userPreference.getVideoId(), userPreference.getValue());
+                array[i] = item;
+            }
+            fastByIdMap.put(array[0].getUserID(), new GenericUserPreferenceArray(Arrays.asList(array)));
+        }
+        return new GenericDataModel(fastByIdMap);
+    }
 
 }
 

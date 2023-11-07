@@ -3,6 +3,7 @@ package com.video.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.video.model.po.Video;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 
 /**
  * (Video)表数据库访问层
