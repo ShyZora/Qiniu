@@ -43,17 +43,19 @@ export default {
                 method: 'post',
                 url: 'login/user/login',
                 data: {
-                    nickName: this.username,
-                    password: this.password
+                    nickName: that.username,
+                    password: that.password
                 }
 
             }).then(function (response) {
-                console.log(response.data, that.token)
+                console.log(response.data.data)
                 that.token = response.data.data.token
                 that.logined = true
                 that.$emit('dataDelivery', that.token)
-                console.log(that)
-                Cookies.set('token', that.token, 3600000);
+                
+                Cookies.set('token', that.token, 60*60*24);
+                Cookies.set('userId', response.data.data.usrId, 60*60*24);
+                console.log(Cookies.get('token'),Cookies.get('userId'))
                 
             })
                 .catch(function (error) {

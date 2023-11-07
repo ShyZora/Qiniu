@@ -9,58 +9,38 @@
             </div>
 
         </div>
-        <div v-if="urlarr.length === 0">
+        <div v-if="urlarr.length===0">
             <el-empty description="抱歉，暂无视频播放！" :image-size="400"></el-empty>
         </div>
     </div>
 </template>
 
 <script>
-var axios = require('axios');
+
 import Aside from '/src/components/aside.vue'
 import PlayerVideo from "/src/components/PlayerVideo.vue";
 export default {
     name: 'mainPage',
     data() {
         return {
-            urlarr: [],
-            index: 0,
-            isGetData: false
+           
+            index: 0
         }
     },
+    props:['urlarr'],
     components: {
         Aside,
         PlayerVideo
     },
     methods: {
-        getVideo() {
-            let that = this
-            axios({
-                method: 'get',
-                url: '/video/user/favourite?id=2',
-                headers: {
-                    token: this.$cookies.get('token'),
-
-                }
-
-            }).then(function (response) {
-
-                that.urlarr = response.data.data
-                console.log(that.urlarr, 'that')
-                that.isGetData = true
-            })
-                .catch(function (error) {
-                    console.log(error);
-                });
-
-        },
+        
         dataDelivery(value) {
             this.index = value
-
+            console.log(this.index)
         }
     },
     mounted() {
-        this.getVideo()
+        
     }
 }
 </script>
