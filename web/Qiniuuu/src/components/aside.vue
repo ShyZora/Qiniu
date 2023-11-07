@@ -89,17 +89,19 @@ export default {
         },
         collect(va) {
             let that = this
+            console.log(that.urlarr,'url')
             console.log(this.$cookies.get('token'))
             let data = {
                     id: that.urlarr.id,
                     userId: that.urlarr.userId,
-                    videoId: that.urlarr.videoId,
+                    videoId: that.urlarr.id,
                     title: that.urlarr.title,
                     videoUrl: that.urlarr.videoUrl,
                     coverUrl: that.urlarr.coverUrl,
                     createTime: that.urlarr.createTime,
                     updateTime: that.urlarr.updateTime
                 }
+                console.log(data,'data')
             if (va) {
                 this.collected = true
                 this.urlarr.favouriteNum += 1
@@ -128,7 +130,7 @@ export default {
                     },
                     data: {
                         id: that.$cookies.get('userId'),
-                        favouriteNum: that.urlarr.likeNum
+                        favouriteNum: that.urlarr.favouriteNum
                     }
                 }).then(function (response) {
                     console.log(response.data)
@@ -163,7 +165,7 @@ export default {
                     },
                     data: {
                         id: that.$cookies.get('userId'),
-                        favouriteNum: that.urlarr.likeNum
+                        favouriteNum: that.urlarr.favouriteNum
                     }
                 }).then(function (response) {
                     console.log(response.data)
@@ -179,7 +181,7 @@ export default {
             let data = {
                     id: that.urlarr.id,
                     userId: that.urlarr.userId,
-                    videoId: that.urlarr.videoId,
+                    videoId: that.urlarr.id,
                     title: that.urlarr.title,
                     videoUrl: that.urlarr.videoUrl,
                     coverUrl: that.urlarr.coverUrl,
