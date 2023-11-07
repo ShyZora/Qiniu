@@ -58,6 +58,7 @@
 </template>
 
 <script>
+
 import Cookies from "vue-cookies"
 export default {
     name: 'commonAside',
@@ -74,7 +75,7 @@ export default {
     },
     methods: {
         copy() {
-            this.$copyText(this.urlarr.url).then(
+            this.$copyText(this.urlarr.videoUrl).then(
                 e => {
                     this.$message({
                         message: '复制视频链接成功，快去和朋友们分享叭~',
