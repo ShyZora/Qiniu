@@ -100,7 +100,13 @@ public class QiniuServiceImpl implements IQiniuService, InitializingBean {
         Video video = new Video();
         video.setTitle(publishVideoDto.getTitle());
         video.setUserId(publishVideoDto.getUserId());
+        video.setCategoryId(publishVideoDto.getCategoryId());
+        video.setVideoUrl(publishVideoDto.getVideoUrl());
         video.setUpdateTime(LocalDateTime.now());
+        video.setLikeNum(0L);
+        video.setCreateTime(LocalDateTime.now());
+        video.setFavouriteNum(0L);
+        video.setShareNum(0L);
         video.setCoverUrl("null");
         videoService.save(video);
         return ResponseResult.okResult();
