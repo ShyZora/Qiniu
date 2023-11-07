@@ -3,8 +3,9 @@
         <div>
             <ul>
 
-                <li> <img src="../assets/img/heart.png" width="30px" v-show="!heart" @click="heart = true" />
-                    <img src="../assets/img/hearted.png" width="35px" height="30px" v-show="heart" @click="heart = false" />
+                <li> <img src="../assets/img/heart.png" width="30px" v-show="!hearted" @click="heart(true)" />
+                    <img src="../assets/img/hearted.png" width="35px" height="30px" v-show="hearted"
+                        @click="heart(false)" />
                     <p class="urltext1">{{ urlarr.likeNum }}</p>
                 </li>
                 <li @click="drawer = true">
@@ -58,13 +59,14 @@
 </template>
 
 <script>
+var axios = require('axios');
 import Cookies from "vue-cookies"
 export default {
     name: 'commonAside',
     props: ["urlarr"],
     data() {
         return {
-            heart: false,
+            hearted: false,
             collected: false,
             drawer: false,
             input: '',
@@ -85,11 +87,175 @@ export default {
 
         },
         collect(va) {
+            let that = this
+            console.log(this.$cookies.get('token'))
+            let data = {
+                    id: that.urlarr.id,
+                    userId: that.urlarr.userId,
+                    videoId: that.urlarr.videoId,
+                    title: that.urlarr.title,
+                    videoUrl: that.urlarr.videoUrl,
+                    coverUrl: that.urlarr.coverUrl,
+                    createTime: that.urlarr.createTime,
+                    updateTime: that.urlarr.updateTime
+                }
             if (va) {
-                this.collected = true
+                this.hearted = true
+                this.urlarr.likeNum += 1
+                
+                
+                axios({
+                    method: 'post',
+                    url: '/video/user/favourite',
+                    headers: {
+                        token: that.$cookies.get('token'),
 
+                    },
+                    data: data
+                }).then(function (response) {
+                    console.log(response.data)
+                })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+                axios({
+                    method: 'post',
+                    url: '/video/user/favouriteNum',
+                    headers: {
+                        token: that.$cookies.get('token'),
+
+                    },
+                    data: {
+                        id: that.$cookies.get('userId'),
+                        favouriteNum: that.urlarr.likeNum
+                    }
+                }).then(function (response) {
+                    console.log(response.data)
+                })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
             } else {
-                this.collected = false
+                this.hearted = false
+                this.urlarr.likeNum -= 1
+                
+                axios({
+                    method: 'post',
+                    url: '/video/user/unfavourite',
+                    headers: {
+                        token: that.$cookies.get('token'),
+
+                    },
+                    id:that.urlarr.id
+                }).then(function (response) {
+                    console.log(response.data)
+                })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+                axios({
+                    method: 'post',
+                    url: '/video/user/favouriteNum',
+                    headers: {
+                        token: that.$cookies.get('token'),
+
+                    },
+                    data: {
+                        id: that.$cookies.get('userId'),
+                        favouriteNum: that.urlarr.likeNum
+                    }
+                }).then(function (response) {
+                    console.log(response.data)
+                })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
+        },
+        heart(va) {
+            let that = this
+            console.log(this.$cookies.get('token'))
+            let data = {
+                    id: that.urlarr.id,
+                    userId: that.urlarr.userId,
+                    videoId: that.urlarr.videoId,
+                    title: that.urlarr.title,
+                    videoUrl: that.urlarr.videoUrl,
+                    coverUrl: that.urlarr.coverUrl,
+                    createTime: that.urlarr.createTime,
+                    updateTime: that.urlarr.updateTime
+                }
+            if (va) {
+                this.hearted = true
+                this.urlarr.likeNum += 1
+                
+                
+                axios({
+                    method: 'post',
+                    url: '/video/user/like',
+                    headers: {
+                        token: that.$cookies.get('token'),
+
+                    },
+                    data: data
+                }).then(function (response) {
+                    console.log(response.data)
+                })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+                axios({
+                    method: 'post',
+                    url: '/video/user/videoLikeNum',
+                    headers: {
+                        token: that.$cookies.get('token'),
+
+                    },
+                    data: {
+                        id: that.$cookies.get('userId'),
+                        favouriteNum: that.urlarr.likeNum
+                    }
+                }).then(function (response) {
+                    console.log(response.data)
+                })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            } else {
+                this.hearted = false
+                this.urlarr.likeNum -= 1
+                
+                axios({
+                    method: 'post',
+                    url: '/video/user/unlike',
+                    headers: {
+                        token: that.$cookies.get('token'),
+
+                    },
+                    id:that.urlarr.id
+                }).then(function (response) {
+                    console.log(response.data)
+                })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+                axios({
+                    method: 'post',
+                    url: '/video/user/videoLikeNum',
+                    headers: {
+                        token: that.$cookies.get('token'),
+
+                    },
+                    data: {
+                        id: that.$cookies.get('userId'),
+                        favouriteNum: that.urlarr.likeNum
+                    }
+                }).then(function (response) {
+                    console.log(response.data)
+                })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
             }
         }
     },

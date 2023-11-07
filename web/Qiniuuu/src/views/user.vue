@@ -17,17 +17,17 @@
           <div>
             <div class="litterBox" v-for="item in user.Video">
               <div class="litter" @click="playBigVideo(item)">
-                <img :src="item.coverimg"/>
+                <img :src="item.coverimg" />
               </div>
             </div>
           </div>
         </el-tab-pane>
         <el-tab-pane>
-          <span slot="label"><i class="el-icon-lollipop"></i> 喜欢({{user.like.length}})</span>
+          <span slot="label"><i class="el-icon-lollipop"></i> 喜欢({{ user.like.length }})</span>
           <div>
             <div class="litterBox" v-for="item in user.like">
               <div class="litter" @click="playBigVideo(item)">
-                <img :src="item.coverimg"/>
+                <img :src="item.coverimg" />
               </div>
             </div>
           </div>
@@ -35,7 +35,7 @@
       </el-tabs>
     </el-row>
     <div class="homePage" v-show="bigVideo">
-        <!-- <div class="home">
+      <!-- <div class="home">
             <div width="auto" class="aside">
                 <Aside ></Aside>
             </div>
@@ -50,17 +50,18 @@
 </template>
   
 <script>
+var axios = require('axios');
 import Aside from '/src/components/aside.vue'
 import PlayerVideo from "/src/components/PlayerVideo.vue";
 export default {
   name: "home",
   components: {
-        Aside,
-        PlayerVideo
-    },
+    Aside,
+    PlayerVideo
+  },
   data() {
     return {
-      bigVideo:false,
+      bigVideo: false,
       user: {
         userId: '用户123445',
         userPassward: '',
@@ -86,7 +87,7 @@ export default {
         collect: [
           {
             url: '',
-            coverurl:'',
+            coverurl: '',
             upuser: '',
             upTime: '',
             text: '',
@@ -245,10 +246,25 @@ export default {
     };
   },
   methods: {
-    playBigVideo(){}
+    getPerson() {
+      let that = this
+      axios({
+        method: 'get',
+        url: '/video/video/user/feed?userId=2',
+        
+
+      }).then(function (response) {
+        console.log(response.data)
+
+      })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+    playBigVideo() { }
   },
   mounted() {
-
+    this.getPerson()
   },
 
 };
@@ -257,7 +273,8 @@ export default {
 .user {
   background-image: url(../assets/img/back.png);
 }
-.litter{
+
+.litter {
   width: 260px;
   height: 350px;
   background-color: antiquewhite;

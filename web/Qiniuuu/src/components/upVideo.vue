@@ -32,17 +32,17 @@ export default {
     props: ["token"],
     methods: {
         uploadVideo() {
-            
+            let that=this
             axios({
                 method: 'post',
-                url: 'video/video/upload',
+                url: '/video/video/upload',
                 header: {
-                    token: this.token,
+                    token: that.token,
                    
                 }
 
             }).then(function (response) {
-                console.log(response.data)
+                console.log(response.data,'token')
             })
                 .catch(function (error) {
                     console.log(error);
